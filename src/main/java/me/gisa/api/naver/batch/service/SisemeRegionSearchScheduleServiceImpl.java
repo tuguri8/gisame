@@ -26,13 +26,13 @@ public class SisemeRegionSearchScheduleServiceImpl implements SisemeRegionSearch
 
         List<String> regionNameList = new ArrayList<>();
         optionalRegions.get().forEach(region -> {
-            String regionName = convToRegionName(region.getFullName(), "부동산");
+            String regionName = convToRegionName(region.getFullName());
             regionNameList.add(regionName);
         });
         return regionNameList;
     }
 
-    private String convToRegionName(String fullName, String searchKeyword) {
+    private String convToRegionName(String fullName) {
 
         StringTokenizer st = new StringTokenizer(fullName);
         String sido = st.nextToken();
@@ -46,6 +46,6 @@ public class SisemeRegionSearchScheduleServiceImpl implements SisemeRegionSearch
         } else if (sido.contains("남도")) {
             sido = sido.charAt(0) + "남";
         }
-        return sido + " " + (st.hasMoreTokens() ? st.nextToken() : "") + " " + searchKeyword;
+        return sido + " " + (st.hasMoreTokens() ? st.nextToken() : "");
     }
 }
