@@ -1,7 +1,6 @@
-package me.gisa.api.datatool.siseme;
+package me.gisa.api.daum.datatool.siseme;
 
-import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.daum.datatool.siseme.model.Region;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

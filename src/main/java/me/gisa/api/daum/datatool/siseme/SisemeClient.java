@@ -1,7 +1,9 @@
-package me.gisa.api.datatool.siseme;
+package me.gisa.api.daum.datatool.siseme;
 
-import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.daum.datatool.siseme.model.Region;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 

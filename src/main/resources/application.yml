@@ -9,3 +9,6 @@ feign:
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
+daum-client:
+  ribbon:
+    listOfServers: https://dapi.kakao.com
