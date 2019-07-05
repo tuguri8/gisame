@@ -1,17 +1,17 @@
-package me.gisa.api.datatool.naver.model;
+package me.gisa.api.datatool.naver.model.v1;
 
 import java.util.Date;
 import java.util.List;
 
-public class NaverNewsResponse {
+public class V1NaverNewsResponse {
 	
-	public static NaverNewsResponse EMPTY = new NaverNewsResponse();
+	public static V1NaverNewsResponse EMPTY = new V1NaverNewsResponse();
 
 	private Date lastBuildDate;
 	private Integer total;
 	private Integer start;
 	private Integer display;
-	private List<NaverNewsItems> items;
+	private List<V1NaverNewsItems> items;
 
 	public Date getLastBuildDate() {
 		return lastBuildDate;
@@ -45,11 +45,11 @@ public class NaverNewsResponse {
 		this.display = display;
 	}
 
-	public List<NaverNewsItems> getItems() {
+	public List<V1NaverNewsItems> getItems() {
 		return items;
 	}
 
-	public void setItems(List<NaverNewsItems> items) {
+	public void setItems(List<V1NaverNewsItems> items) {
 		this.items = items;
 	}
 

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "NEWS")
-public class NaverNews {
+public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,10 +1,10 @@
-package me.gisa.api.datatool.naver.model;
+package me.gisa.api.datatool.naver.model.v1;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.Date;
 
-public class NaverNewsItems {
+public class V1NaverNewsItems {
 
 	private String title;
 	private String originallink;

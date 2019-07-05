@@ -1,6 +1,6 @@
 package me.gisa.api.naver.controller;
 
-import me.gisa.api.naver.repository.entity.NaverNews;
+import me.gisa.api.naver.service.model.NewsResponse;
 import me.gisa.api.naver.service.NaverNewsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +20,8 @@ public class NaverNewsController {
 
     //DB에 저장된 뉴스 리스트 얻기
     @GetMapping("/list")
-    public List<NaverNews> getNewsList() {
-        return null;
+    public List<NewsResponse> getNewsList() {
+        return naverNewsService.getNewsList();
     }
 
-    @GetMapping("/sync")
-    public void setSyncNewsList(){
-        naverNewsService.syncNewsList();
-    }
 }
