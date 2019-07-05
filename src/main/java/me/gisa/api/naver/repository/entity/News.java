@@ -1,5 +1,6 @@
 package me.gisa.api.naver.repository.entity;
 
+import me.gisa.api.naver.repository.entity.common.BaseEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import javax.persistence.Entity;
@@ -7,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "NEWS")
-public class News {
+public class News extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = -8295688402595799135L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,6 +63,10 @@ public class News {
 
     public void setWebUrl(String webUrl) {
         this.webUrl = webUrl;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override

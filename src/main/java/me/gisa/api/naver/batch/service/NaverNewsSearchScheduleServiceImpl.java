@@ -34,7 +34,7 @@ public class NaverNewsSearchScheduleServiceImpl implements NaverNewsSearchSchedu
     public V1NaverNewsResponse searchNaverNews(String regionName, String keyword) {
         return naverClient.getNewsList(naverClientProperties.getClientId(),
                                        naverClientProperties.getClientSecret(),
-                                       regionName +" " + keyword);
+                                       regionName + " " + keyword);
     }
 
     @Override
@@ -46,10 +46,14 @@ public class NaverNewsSearchScheduleServiceImpl implements NaverNewsSearchSchedu
 
     private News transform(V1NaverNewsItems v1NaverNewsItems) {
         News news = new News();
-        news.setTitle(v1NaverNewsItems.getTitle());
-        news.setContent(v1NaverNewsItems.getDescription());
+        news.setTitle(removeHtmlTag(v1NaverNewsItems.getTitle()));
+        news.setContent(removeHtmlTag(v1NaverNewsItems.getDescription()));
         news.setPath("Not yet");
         news.setWebUrl(v1NaverNewsItems.getOriginallink());
         return news;
+    }
+
+    private String removeHtmlTag(String original) {
+        return original.replaceAll("<b>", "").replaceAll("</b>", "");
     }
 }

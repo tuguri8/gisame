@@ -2,6 +2,7 @@ package me.gisa.api.datatool.common;
 
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 
+import feign.FeignException;
 import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 

@@ -27,8 +27,13 @@ public class NaverNewsScheduler {
         Optional<List<Region>> optionalRegions = sisemeRegionSearchScheduleService.getRegionList("gungu");
         List<String> regionNameList = sisemeRegionSearchScheduleService.getRegionNameList(optionalRegions);
         regionNameList.forEach(regionName->{
-            V1NaverNewsResponse v1NaverNewsResponse = naverNewsSearchScheduleService.searchNaverNews(regionName, "부동산");
-            naverNewsSearchScheduleService.insertNaverNews(v1NaverNewsResponse);
+            try {
+                Thread.sleep(100);
+                V1NaverNewsResponse v1NaverNewsResponse = naverNewsSearchScheduleService.searchNaverNews(regionName, "부동산");
+                naverNewsSearchScheduleService.insertNaverNews(v1NaverNewsResponse);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
     }
 }
