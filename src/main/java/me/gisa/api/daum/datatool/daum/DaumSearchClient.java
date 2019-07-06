@@ -12,6 +12,6 @@ import java.util.Optional;
 @FeignClient(name = "daum-client", fallbackFactory = DaumSearchClientFallbackFactory.class)
 public interface DaumSearchClient {
     @GetMapping(value = "/v2/search/web", headers = "Authorization=key")
-    DaumSearchResponse getRegionList(@RequestParam("query") String query,
-                                                     @RequestParam("sort") String sort);
+    DaumSearchResponse getNews(@RequestParam("query") String query,
+                               @RequestParam("sort") String sort);
 }

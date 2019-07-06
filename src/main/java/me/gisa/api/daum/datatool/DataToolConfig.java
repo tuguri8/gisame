@@ -3,7 +3,7 @@ package me.gisa.api.daum.datatool;
 import feign.Feign;
 import feign.Retryer;
 import me.gisa.api.daum.datatool.daum.DaumSearchClient;
-import me.gisa.api.daum.datatool.siseme.SisemeClient;
+import me.gisa.api.daum.datatool.api.SisemeClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +17,7 @@ public class DataToolConfig {
         return Feign.builder()
                     .contract(new SpringMvcContract())
                     .retryer(new Retryer.Default())
-                    .target(SisemeClient.class, "siseme-client");
+                    .target(SisemeClient.class, "api-client");
     }
 
     @Bean

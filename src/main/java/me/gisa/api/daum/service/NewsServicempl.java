@@ -2,8 +2,8 @@ package me.gisa.api.daum.service;
 
 import me.gisa.api.daum.datatool.daum.DaumSearchClient;
 import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
-import me.gisa.api.daum.datatool.siseme.SisemeClient;
-import me.gisa.api.daum.datatool.siseme.model.Region;
+import me.gisa.api.daum.datatool.api.SisemeClient;
+import me.gisa.api.daum.datatool.api.model.Region;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.SisemeResultModel;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class NewsServicempl implements NewsService{
 
     @Override
     public List<DaumResultmodel> getDaumResult(String query) {
-        return daumSearchClient.getRegionList(query, "recency").getDocuments().stream().map(x -> daumTransform(x)).collect(Collectors.toList());
+        return daumSearchClient.getNews(query, "recency").getDocuments().stream().map(x -> daumTransform(x)).collect(Collectors.toList());
     }
 
     private SisemeResultModel transform(Region region) {

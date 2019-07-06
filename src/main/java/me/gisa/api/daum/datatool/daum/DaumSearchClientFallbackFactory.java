@@ -25,7 +25,7 @@ public class DaumSearchClientFallbackFactory implements LoggingFallbackFactory<D
 
     public static class DaumSearchClientFallback implements DaumSearchClient {
         @Override
-        public DaumSearchResponse getRegionList(String query, String sort) {
+        public DaumSearchResponse getNews(String query, String sort) {
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package me.gisa.api.daum.datatool.siseme;
+package me.gisa.api.daum.datatool.api;
 
 import org.junit.Before;
 import org.junit.Test;
