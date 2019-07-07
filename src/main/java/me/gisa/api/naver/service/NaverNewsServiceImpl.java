@@ -1,12 +1,9 @@
 package me.gisa.api.naver.service;
 
-import me.gisa.api.datatool.naver.NaverClientProperties;
 import me.gisa.api.naver.service.model.NewsResponse;
 import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.repository.entity.News;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +12,6 @@ import java.util.List;
 
 @Service
 @Configuration
-@EnableConfigurationProperties({NaverClientProperties.class})
 public class NaverNewsServiceImpl implements NaverNewsService {
 
     private final NewsRepository naverNewsRepository;
@@ -26,13 +22,13 @@ public class NaverNewsServiceImpl implements NaverNewsService {
     public List<NewsResponse> getNewsList(Pageable pageable) {
 
         List<NewsResponse> newsResponseList = new ArrayList<>();
-        naverNewsRepository.findByIdGreaterThanOrderByPubDateDesc(0L, pageable).getContent().forEach(news ->{
+        naverNewsRepository.findByIdGreaterThanOrderByPubDateDesc(0L, pageable).getContent().forEach(news -> {
             newsResponseList.add(transform(news));
         });
         return newsResponseList;
     }
 
-    private NewsResponse transform(News news){
+    private NewsResponse transform(News news) {
         NewsResponse newsResponse = new NewsResponse();
         newsResponse.setTitle(news.getTitle());
         newsResponse.setContent(news.getContent());

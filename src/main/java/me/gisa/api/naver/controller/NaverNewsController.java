@@ -3,6 +3,8 @@ package me.gisa.api.naver.controller;
 import me.gisa.api.naver.controller.model.PageVO;
 import me.gisa.api.naver.service.model.NewsResponse;
 import me.gisa.api.naver.service.NaverNewsService;
+import org.hibernate.annotations.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,8 @@ public class NaverNewsController {
         this.naverNewsService = naverNewsService;
     }
 
-    //DB에 저장된 뉴스 리스트 얻기
     @GetMapping("/list")
+    @Cacheable()
     public List<NewsResponse> getNewsList(PageVO page) {
         Pageable pageable = page.makePageable(0, "id");
         return naverNewsService.getNewsList(pageable);

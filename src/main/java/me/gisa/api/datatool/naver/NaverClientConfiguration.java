@@ -5,6 +5,9 @@ import feign.RequestTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NaverClientConfiguration {
 
     @Value("${naver.api.clientId}")
@@ -14,7 +17,10 @@ public class NaverClientConfiguration {
     private String clientSecret;
 
     @Bean
-    public RequestInterceptor requestInterceptor(){
-        return requestTemplate -> requestTemplate.header("X-Naver-Client-Id", clientId, "X-Naver-Client-Secret", clientSecret);
+    public RequestInterceptor requestInterceptor() {
+        return requestTemplate -> {
+            requestTemplate.header("X-Naver-Client-Id", clientId);
+            requestTemplate.header("X-Naver-Client-Secret", clientSecret);
+        };
     }
 }

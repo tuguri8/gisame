@@ -25,7 +25,8 @@ public class NaverClientFallbackFactory implements LoggingFallbackFactory<NaverC
     public static class NaverClientFallback implements NaverClient {
 
         @Override
-        public V1NaverNewsResponse getNewsList(String clientId, String clientSecret, String query) {
+        public V1NaverNewsResponse getNewsList(String query) {
+
             return V1NaverNewsResponse.EMPTY;
         }
     }
