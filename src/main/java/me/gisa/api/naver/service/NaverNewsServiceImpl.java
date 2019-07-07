@@ -6,6 +6,8 @@ import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.repository.entity.News;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,9 +23,10 @@ public class NaverNewsServiceImpl implements NaverNewsService {
     public NaverNewsServiceImpl(NewsRepository naverNewsRepository) {this.naverNewsRepository = naverNewsRepository;}
 
     @Override
-    public List<NewsResponse> getNewsList() {
+    public List<NewsResponse> getNewsList(Pageable pageable) {
+
         List<NewsResponse> newsResponseList = new ArrayList<>();
-        naverNewsRepository.findByIdGreaterThan(0L).forEach(news ->{
+        naverNewsRepository.findByIdGreaterThanOrderByPubDateDesc(0L, pageable).getContent().forEach(news ->{
             newsResponseList.add(transform(news));
         });
         return newsResponseList;
@@ -35,6 +38,7 @@ public class NaverNewsServiceImpl implements NaverNewsService {
         newsResponse.setContent(news.getContent());
         newsResponse.setPath(news.getPath());
         newsResponse.setWebUrl(news.getWebUrl());
+        newsResponse.setPubDate(news.getPubDate());
         return newsResponse;
     }
 

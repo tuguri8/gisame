@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "NEWS")
@@ -24,6 +25,7 @@ public class News extends BaseEntity implements Serializable {
     private String content;
     private String path;
     private String webUrl;
+    private LocalDate pubDate;
 
     public Long getId() {
         return id;
@@ -67,6 +69,14 @@ public class News extends BaseEntity implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public LocalDate getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(LocalDate pubDate) {
+        this.pubDate = pubDate;
     }
 
     @Override

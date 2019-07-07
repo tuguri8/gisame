@@ -21,7 +21,7 @@ public class NaverNewsScheduler {
         this.naverNewsSearchScheduleService = naverNewsSearchScheduleService;
         this.sisemeRegionSearchScheduleService = sisemeRegionSearchScheduleService;
     }
-    @Scheduled(cron = "* */2 * * * *")
+    @Scheduled(cron = "* */5 * * * *")
     public void sync(){
 
         Optional<List<Region>> optionalRegions = sisemeRegionSearchScheduleService.getRegionList("gungu");

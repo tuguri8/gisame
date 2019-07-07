@@ -1,11 +1,22 @@
 package me.gisa.api.naver.service.model;
 
+import java.time.LocalDate;
+
 public class NewsResponse {
 
     private String title;
     private String content;
     private String path;
     private String webUrl;
+    private LocalDate pubDate;
+
+    public LocalDate getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(LocalDate pubDate) {
+        this.pubDate = pubDate;
+    }
 
     public String getTitle() {
         return title;

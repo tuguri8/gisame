@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,7 @@ public class NaverNewsSearchScheduleServiceImpl implements NaverNewsSearchSchedu
         news.setContent(removeHtmlTag(v1NaverNewsItems.getDescription()));
         news.setPath("Not yet");
         news.setWebUrl(v1NaverNewsItems.getOriginallink());
+        news.setPubDate(v1NaverNewsItems.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         return news;
     }
 
