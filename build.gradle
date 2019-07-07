@@ -28,6 +28,7 @@ dependencies {
     // etc
     implementation 'com.google.guava:guava:23.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'com.github.ben-manes.caffeine:caffeine'
 
     runtime 'com.h2database:h2'

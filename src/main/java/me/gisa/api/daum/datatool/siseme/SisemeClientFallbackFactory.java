@@ -1,7 +1,7 @@
-package me.gisa.api.daum.datatool.api;
+package me.gisa.api.daum.datatool.siseme;
 
 import me.gisa.api.daum.datatool.common.LoggingFallbackFactory;
-import me.gisa.api.daum.datatool.api.model.Region;
+import me.gisa.api.daum.datatool.siseme.model.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

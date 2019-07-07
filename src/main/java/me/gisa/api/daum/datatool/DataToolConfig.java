@@ -3,7 +3,7 @@ package me.gisa.api.daum.datatool;
 import feign.Feign;
 import feign.Retryer;
 import me.gisa.api.daum.datatool.daum.DaumSearchClient;
-import me.gisa.api.daum.datatool.api.SisemeClient;
+import me.gisa.api.daum.datatool.siseme.SisemeClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.context.annotation.Bean;
