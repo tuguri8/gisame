@@ -1,6 +1,5 @@
 package me.gisa.api.daum.service;
 
-import me.gisa.api.daum.controller.v1.dto.BatchResponse;
 import me.gisa.api.daum.repository.entity.DaumNews;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.NewsBySisemeModel;

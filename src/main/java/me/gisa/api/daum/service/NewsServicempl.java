@@ -10,6 +10,7 @@ import me.gisa.api.daum.repository.entity.DaumNewsRepository;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.NewsBySisemeModel;
 import me.gisa.api.daum.service.model.SisemeResultModel;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -69,6 +70,7 @@ public class NewsServicempl implements NewsService{
     }
 
     @Override
+    @Scheduled(cron="0 0 0/1 * * *")
     public List<NewsBySisemeModel> getNewsBySiseme() {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult("sido"), getSisemeResult("gungu"));
         List<DaumNews> batchResult = sisemeResultModelList.stream()

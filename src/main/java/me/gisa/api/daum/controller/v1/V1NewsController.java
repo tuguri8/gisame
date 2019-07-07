@@ -1,6 +1,5 @@
 package me.gisa.api.daum.controller.v1;
 
-import me.gisa.api.daum.controller.v1.dto.BatchResponse;
 import me.gisa.api.daum.service.NewsService;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.NewsBySisemeModel;
@@ -34,7 +33,6 @@ public class V1NewsController {
 
     @GetMapping("/batch")
     public List<NewsBySisemeModel> getNewsBySiseme() {
-        System.out.println("실행은됨");
         return newsService.getNewsBySiseme();
     }
 }
