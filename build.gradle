@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.google.guava:guava:23.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'com.github.ben-manes.caffeine:caffeine'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 
     runtime 'com.h2database:h2'
 

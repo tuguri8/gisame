@@ -1,6 +1,6 @@
-package me.gisa.api.service;
+package me.gisa.api.rss.service;
 
-import me.gisa.api.service.model.NewsfromRssModel;
+import me.gisa.api.rss.service.model.NewsfromRssModel;
 
 import javax.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
