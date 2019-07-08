@@ -27,15 +27,13 @@ public class getNewsfromRssController {
     @ResponseBody
     public List<NewsfromRssResponse> getNewsFromRss (@PathVariable String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException {
         List<NewsfromRssResponse> newsfromRssResponseList = new ArrayList<NewsfromRssResponse>();
-        System.out.println("1111111111111111111111111\n");
         List<NewsfromRssModel> newsfromRssModelList = getNewsfromRssService.getNewsfromRss(region);
-        System.out.println("6666666666666666666666666\n");
+
 
         for(NewsfromRssModel newsfromRssModel : newsfromRssModelList){
             NewsfromRssResponse newsfromRssResponse=new NewsfromRssResponse(newsfromRssModel);
             newsfromRssResponseList.add(newsfromRssResponse);
         }
-        System.out.println(newsfromRssResponseList.size());
         return newsfromRssResponseList;
     }
 

@@ -11,15 +11,10 @@ public class NewsfromRssResponse {
     private String description ;
 
     public NewsfromRssResponse(NewsfromRssModel newsfromRssModel) {
-        System.out.println(1);
         this.title=newsfromRssModel.getTitle();
-        System.out.println(2);
         this.originalLink=newsfromRssModel.getOriginalLink();
-        System.out.println(3);
         this.elapsedDays=newsfromRssModel.getElapsedDays();
-        System.out.println(4);
         this.description=newsfromRssModel.getDescription();
-        System.out.println(5);
     }
     public String getTitle(){
         return title;
