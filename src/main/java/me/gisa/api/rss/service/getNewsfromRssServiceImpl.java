@@ -1,6 +1,8 @@
 package me.gisa.api.rss.service;
 
 import lombok.Data;
+import me.gisa.api.rss.repository.entity.Newsfromrss;
+import me.gisa.api.rss.repository.NewsfromrssRepository;
 import me.gisa.api.rss.service.model.Document;
 import me.gisa.api.rss.service.model.Documents;
 import me.gisa.api.rss.service.model.NewsfromRssModel;
@@ -20,7 +22,12 @@ import java.util.List;
 @Data
 @Service
 public class getNewsfromRssServiceImpl implements getNewsfromRssService {
+private final NewsfromrssRepository newsfromrssRepository;
 
+public getNewsfromRssServiceImpl(NewsfromrssRepository newsfromrssRepository){
+    this.newsfromrssRepository=newsfromrssRepository;
+}
+    //google rss에서 가져옴
     public List<NewsfromRssModel> getNewsfromRss (String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException {
         JAXBContext jaxbContext;
         jaxbContext=JAXBContext.newInstance(Documents.class);
@@ -37,12 +44,28 @@ public class getNewsfromRssServiceImpl implements getNewsfromRssService {
         return transform(newsList);
 
     }
+    //가져온 뉴스기사들 DB에 저장
+    private void saveNewsfromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException {
+        List<NewsfromRssModel> newsfromRssModelList = getNewsfromRss(region);
 
+        for(NewsfromRssModel newsfromRssModel : newsfromRssModelList){
+            Newsfromrss newsfromrss = new Newsfromrss();
+
+            newsfromrss.setTitle(newsfromRssModel.getTitle());
+            newsfromrss.setLink(newsfromRssModel.getOriginalLink());
+            newsfromrss.setDescription(newsfromRssModel.getDescription());
+            newsfromrss.setPubDate(newsfromRssModel.getPubDate());
+            newsfromrss.setRegionName(region);
+
+            newsfromrssRepository.save(newsfromrss);
+        }
+    }
     private List<NewsfromRssModel> transform(List<Document> documents) {
         List<NewsfromRssModel> newsfromRssModelList= new ArrayList<NewsfromRssModel>();
         for(Document document : documents){
             NewsfromRssModel newsfromRssModel=new NewsfromRssModel();
             newsfromRssModel.setTitle(document.getTitle());
+            newsfromRssModel.setPubDate(document.getPubDate());
             newsfromRssModel.setOriginalLink(document.getOriginallick());
             newsfromRssModel.setDescription(document.getDescription());
             //newsfromRssModel.getShortLink();

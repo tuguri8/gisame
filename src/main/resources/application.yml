@@ -9,3 +9,17 @@ feign:
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:newsfromrssdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /newsdbfromrss
+
+
+
+

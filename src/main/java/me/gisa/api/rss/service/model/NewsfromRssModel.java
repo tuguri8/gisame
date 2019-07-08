@@ -4,6 +4,7 @@ public class NewsfromRssModel {
     private String title ;
     private String originalLink;
     private String shortLink;
+    private String pubDate;
     private String elapsedDays; //경과일
     private String description ;
 
@@ -33,6 +34,13 @@ public class NewsfromRssModel {
     }
     public void setElapsedDays(String elapsedDays) {
         this.elapsedDays = elapsedDays;
+    }
+
+    public String getPubDate(){
+        return pubDate;
+    }
+    public void setPubDate(String pubDate){
+        this.pubDate = pubDate;
     }
 
     public String getDescription(){
