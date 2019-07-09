@@ -46,6 +46,6 @@ public enum RegionGroup {
         return Arrays.stream(RegionGroup.values())
             .filter(regionGroup -> regionName.equals(regionGroup.getFullName()))
             .findAny()
-            .orElse(GYEONGGI);
+            .orElse(UNKNOWN);
     }
 }
