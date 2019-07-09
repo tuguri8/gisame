@@ -1,5 +1,6 @@
 package me.gisa.api.daum.repository.entity.common;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -46,11 +47,13 @@ public abstract class BaseEntity {
     }
 
     private LocalDateTime getLocalDateTimeFrom(Date date) {
-        return isNull(date) ? null : ofInstant(ofEpochMilli(date.getTime()), systemDefault());
+        return isNull(date) ? ofInstant(ofEpochMilli(new Date().getTime()), systemDefault()) : ofInstant(ofEpochMilli(date.getTime()),
+                                                                                                         systemDefault());
     }
 
     private Date getDateFrom(LocalDateTime localDateTime) {
-        return isNull(localDateTime) ? null : Date.from(localDateTime.atZone(systemDefault())
-                                                                     .toInstant());
+        return isNull(localDateTime) ? Date.from(LocalDateTime.now().atZone(systemDefault())
+                                                              .toInstant()) : Date.from(localDateTime.atZone(systemDefault())
+                                                                                                     .toInstant());
     }
 }

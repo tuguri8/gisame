@@ -1,5 +1,7 @@
 package me.gisa.api.daum.service;
 
+import me.gisa.api.daum.common.RegionGroup;
+import me.gisa.api.daum.common.RegionType;
 import me.gisa.api.daum.datatool.daum.DaumSearchClient;
 import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
 import me.gisa.api.daum.datatool.siseme.SisemeClient;
@@ -10,35 +12,40 @@ import me.gisa.api.daum.repository.entity.DaumNewsRepository;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.NewsBySisemeModel;
 import me.gisa.api.daum.service.model.SisemeResultModel;
+import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 @Service
-public class NewsServicempl implements NewsService{
+public class NewsServicempl implements NewsService {
     private final SisemeClient sisemeClient;
     private final DaumSearchClient daumSearchClient;
     private final DaumNewsRepository daumNewsRepository;
+    private final ModelMapper modelMapper;
 
     public NewsServicempl(SisemeClient sisemeClient,
                           DaumSearchClient daumSearchClient,
-                          DaumNewsRepository daumNewsRepository) {
+                          DaumNewsRepository daumNewsRepository, ModelMapper modelMapper) {
         this.sisemeClient = sisemeClient;
         this.daumSearchClient = daumSearchClient;
         this.daumNewsRepository = daumNewsRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<SisemeResultModel> getSisemeResult(String regionName) {
-        return sisemeClient.getRegionList(regionName)
-                           .get()
-                           .stream()
-                           .map(x -> transform(x))
-                           .collect(Collectors.toList());
+    public List getSisemeResult(RegionType regionType) {
+        Optional<List<Region>> sisemeResult = sisemeClient.getRegionList(regionType.name());
+        return sisemeResult.map(regions -> regions
+            .stream()
+            .map(this::transform)
+            .collect(Collectors.toList())).orElse(Collections.EMPTY_LIST);
     }
 
     @Override
@@ -46,7 +53,7 @@ public class NewsServicempl implements NewsService{
         return daumSearchClient.getNews(query, "recency")
                                .getDocuments()
                                .stream()
-                               .map(x -> daumTransform(x))
+                               .map(document -> modelMapper.map(document, DaumResultmodel.class))
                                .collect(Collectors.toList());
     }
 
@@ -55,72 +62,47 @@ public class NewsServicempl implements NewsService{
         return daumSearchClient.getNews(sisemeResultModel.getKeyword(), "recency")
                                .getDocuments()
                                .stream()
-                               .map((x) -> {
-                                   DaumNews daumNews = new DaumNews();
-                                   daumNews.setType(sisemeResultModel.getType());
-                                   daumNews.setCode(sisemeResultModel.getCode());
-                                   daumNews.setKeyword(sisemeResultModel.getKeyword());
-                                   daumNews.setTitle(x.getTitle());
-                                   daumNews.setDatetime(x.getDatetime());
-                                   daumNews.setUrl(x.getUrl());
-                                   daumNews.setContents(x.getContents());
-                                   return daumNews;
-                               })
+                               .map(documents -> transform(sisemeResultModel, documents))
                                .collect(Collectors.toList());
     }
 
     @Override
-    @Scheduled(cron="0 0 0/1 * * *")
-    public List<NewsBySisemeModel> getNewsBySiseme() {
-        List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult("sido"), getSisemeResult("gungu"));
+    @Scheduled(cron = "0 0 0/1 * * *")
+    public void getNewsBySiseme() {
+        List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO),
+                                                                        getSisemeResult(RegionType.GUNGU));
         List<DaumNews> batchResult = sisemeResultModelList.stream()
-                                                                   .map(x -> getDaumResult(x))
-                                                                   .flatMap(Collection::stream)
-                                                                   .collect(Collectors.toList());
+                                                          .map(this::getDaumResult)
+                                                          .flatMap(Collection::stream)
+                                                          .collect(Collectors.toList());
         daumNewsRepository.saveAll(batchResult);
-        return batchResult.stream().map(x -> getNewsBySisemeTransform(x)).collect(Collectors.toList());
+        batchResult.stream()
+                   .map(x -> modelMapper.map(x, NewsBySisemeModel.class))
+                   .collect(Collectors.toList());
+    }
+
+    private DaumNews transform(SisemeResultModel sisemeResultModel, DaumSearchResponse.Documents documents) {
+        DaumNews daumNews = new DaumNews();
+        daumNews.setType(sisemeResultModel.getType());
+        daumNews.setCode(sisemeResultModel.getCode());
+        daumNews.setKeyword(sisemeResultModel.getKeyword());
+        daumNews.setTitle(documents.getTitle());
+        daumNews.setDatetime(documents.getDatetime());
+        daumNews.setUrl(documents.getUrl());
+        daumNews.setContents(documents.getContents());
+        return daumNews;
     }
 
     private SisemeResultModel transform(Region region) {
+        StringTokenizer st = new StringTokenizer(region.getFullName());
+        String keyword = st.nextToken();
+        keyword = st.hasMoreTokens() ? (RegionGroup.findByRegionName(keyword)
+                                                   .getKeyword() + " " + st.nextToken()) : RegionGroup.findByRegionName(keyword)
+                                                                                                      .getKeyword();
         SisemeResultModel sisemeResultModel = new SisemeResultModel();
         sisemeResultModel.setType(region.getType());
         sisemeResultModel.setCode(region.getCode());
-        sisemeResultModel.setKeyword(changeRegionName(region.getFullName()));
+        sisemeResultModel.setKeyword(keyword);
         return sisemeResultModel;
-    }
-
-    private DaumResultmodel daumTransform(DaumSearchResponse.Documents document) {
-        DaumResultmodel daumResultmodel= new DaumResultmodel();
-        daumResultmodel.setTitle(document.getTitle());
-        daumResultmodel.setContents(document.getContents());
-        daumResultmodel.setDatetime(document.getDatetime());
-        daumResultmodel.setUrl(document.getUrl());
-        return daumResultmodel;
-    }
-
-    private NewsBySisemeModel getNewsBySisemeTransform(DaumNews daumNews) {
-        NewsBySisemeModel newsBySisemeModel = new NewsBySisemeModel();
-        newsBySisemeModel.setType(daumNews.getType());
-        newsBySisemeModel.setCode(daumNews.getCode());
-        newsBySisemeModel.setKeyword(daumNews.getKeyword());
-        newsBySisemeModel.setTitle(daumNews.getTitle());
-        newsBySisemeModel.setDatetime(daumNews.getDatetime());
-        newsBySisemeModel.setUrl(daumNews.getUrl());
-        newsBySisemeModel.setContents(daumNews.getContents());
-        return newsBySisemeModel;
-    }
-
-    private String changeRegionName(String regionName) {
-        StringTokenizer st = new StringTokenizer(regionName);
-        String keyword = st.nextToken();
-        if (keyword.contains("특별")) {
-            return keyword.substring(0,2)+'시';
-        } else if(keyword.contains("광역")) {
-            return keyword.substring(0,2)+'시';
-        } else if(keyword.contains("남도") || keyword.contains("북도")) {
-            return new StringBuilder().append(keyword.charAt(0)).append(keyword.charAt(2)).toString();
-        }
-        keyword = st.hasMoreTokens() ? keyword + " " + st.nextToken() : keyword;
-        return keyword;
     }
 }
