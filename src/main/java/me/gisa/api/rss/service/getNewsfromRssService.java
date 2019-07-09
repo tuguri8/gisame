@@ -11,4 +11,5 @@ import java.util.List;
 public interface getNewsfromRssService {
     public List<NewsfromRssModel> getNewsfromRss (String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException;
     public void saveNewsfromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException;
+    public String changeRegionName(String regionFullName);
 }
