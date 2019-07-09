@@ -1,11 +1,7 @@
 package me.gisa.api.rss.repository.entity;
 
-import lombok.Data;
-
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name="NEWS_FROM_RSS")
 public class Newsfromrss {

@@ -1,6 +1,5 @@
 package me.gisa.api.rss.service;
 
-import lombok.Data;
 import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.rss.repository.entity.Newsfromrss;
 import me.gisa.api.rss.repository.NewsfromrssRepository;
@@ -20,7 +19,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
 public class getNewsfromRssServiceImpl implements getNewsfromRssService {
 private final NewsfromrssRepository newsfromrssRepository;
@@ -76,12 +74,12 @@ public getNewsfromRssServiceImpl(NewsfromrssRepository newsfromrssRepository,Sis
 
     public String changeRegionName(String regionFullName){
         String regionName;
-        String regionName_si;
+        String regionName_sido;
         StringBuilder stringBuilder =new StringBuilder();
 
         if(regionFullName.contains("특별시")||regionFullName.contains("광역시")){
            regionName = regionFullName.substring(0,2);
-           regionName_si = regionFullName.substring(0,2) + "시";
+           regionName_sido = regionFullName.substring(0,2) + "시";
 
            return regionName;
         }
@@ -91,7 +89,7 @@ public getNewsfromRssServiceImpl(NewsfromrssRepository newsfromrssRepository,Sis
         }
         else if(regionFullName.contains("특별자치도")){
             regionName = regionFullName.substring(0,2);
-            regionName_si = regionFullName.substring(0,2) + "도";
+            regionName_sido = regionFullName.substring(0,2) + "도";
 
             return regionName;
         }
