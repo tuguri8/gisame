@@ -45,7 +45,7 @@ public getNewsfromRssServiceImpl(NewsfromrssRepository newsfromrssRepository){
 
     }
     //가져온 뉴스기사들 DB에 저장
-    private void saveNewsfromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException {
+    public void saveNewsfromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException {
         List<NewsfromRssModel> newsfromRssModelList = getNewsfromRss(region);
 
         for(NewsfromRssModel newsfromRssModel : newsfromRssModelList){
