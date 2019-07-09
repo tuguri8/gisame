@@ -1,4 +1,4 @@
-package me.gisa.api.daum.common;
+package me.gisa.api.daum.datatool.siseme.model;
 
 import java.util.Arrays;
 

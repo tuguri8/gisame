@@ -1,6 +1,6 @@
 package me.gisa.api.daum.service;
 
-import me.gisa.api.daum.common.RegionType;
+import me.gisa.api.daum.datatool.siseme.model.RegionType;
 import me.gisa.api.daum.repository.entity.DaumNews;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.SisemeResultModel;

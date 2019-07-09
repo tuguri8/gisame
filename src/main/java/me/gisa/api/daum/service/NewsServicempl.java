@@ -1,7 +1,7 @@
 package me.gisa.api.daum.service;
 
-import me.gisa.api.daum.common.RegionGroup;
-import me.gisa.api.daum.common.RegionType;
+import me.gisa.api.daum.datatool.siseme.model.RegionGroup;
+import me.gisa.api.daum.datatool.siseme.model.RegionType;
 import me.gisa.api.daum.datatool.daum.DaumSearchClient;
 import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
 import me.gisa.api.daum.datatool.siseme.SisemeClient;
