@@ -30,7 +30,9 @@ dependencies {
     // etc
     implementation 'com.google.guava:guava:23.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'com.github.ben-manes.caffeine:caffeine'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.0'
 
     runtime 'com.h2database:h2'
 

@@ -1,4 +1,4 @@
-package me.gisa.api.naver.service.model;
+package me.gisa.api.naver.controller.model;
 
 import java.time.LocalDate;
 

@@ -26,6 +26,7 @@ public class News extends BaseEntity implements Serializable {
     private String path;
     private String webUrl;
     private LocalDate pubDate;
+    private Boolean active;
 
     public Long getId() {
         return id;
@@ -79,6 +80,7 @@ public class News extends BaseEntity implements Serializable {
         this.pubDate = pubDate;
     }
 
+
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("title", title)
@@ -86,5 +88,13 @@ public class News extends BaseEntity implements Serializable {
                                         .append("path", path)
                                         .append("webUrl", webUrl)
                                         .toString();
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

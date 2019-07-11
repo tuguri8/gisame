@@ -1,56 +1,58 @@
 package me.gisa.api.datatool.naver.model.v1;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.Date;
 import java.util.List;
 
 public class V1NaverNewsResponse {
-	
-	public static V1NaverNewsResponse EMPTY = new V1NaverNewsResponse();
 
-	private Date lastBuildDate;
-	private Integer total;
-	private Integer start;
-	private Integer display;
-	private List<V1NaverNewsItems> items;
+    public static V1NaverNewsResponse EMPTY = new V1NaverNewsResponse();
 
-	public Date getLastBuildDate() {
-		return lastBuildDate;
-	}
+    private Date lastBuildDate;
+    private Integer total;
+    private Integer start;
+    private Integer display;
+    private List<V1NaverNewsItems> items;
 
-	public void setLastBuildDate(Date lastBuildDate) {
-		this.lastBuildDate = lastBuildDate;
-	}
+    public Date getLastBuildDate() {
+        return lastBuildDate;
+    }
 
-	public Integer getTotal() {
-		return total;
-	}
+    public void setLastBuildDate(Date lastBuildDate) {
+        this.lastBuildDate = lastBuildDate;
+    }
 
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
+    public Integer getTotal() {
+        return total;
+    }
 
-	public Integer getStart() {
-		return start;
-	}
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
-	public void setStart(Integer start) {
-		this.start = start;
-	}
+    public Integer getStart() {
+        return start;
+    }
 
-	public Integer getDisplay() {
-		return display;
-	}
+    public void setStart(Integer start) {
+        this.start = start;
+    }
 
-	public void setDisplay(Integer display) {
-		this.display = display;
-	}
+    public Integer getDisplay() {
+        return display;
+    }
 
-	public List<V1NaverNewsItems> getItems() {
-		return items;
-	}
+    public void setDisplay(Integer display) {
+        this.display = display;
+    }
 
-	public void setItems(List<V1NaverNewsItems> items) {
-		this.items = items;
-	}
+    public List<V1NaverNewsItems> getItems() {
+        return items;
+    }
+
+    public void setItems(List<V1NaverNewsItems> items) {
+        this.items = items;
+    }
 
 }

@@ -1,18 +1,21 @@
 package me.gisa.api.naver.repository;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import me.gisa.api.naver.repository.entity.News;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
-    Page<News> findByIdGreaterThanOrderByPubDateDesc(Long id, Pageable pageable);
+    Page<News> findAllByOrderByPubDateDesc(Pageable pageable);
 
+    News findByPathAndActive(String path, Boolean isActive);
+
+//    Page<News> findByIdGreaterThanOrderByPubDateDesc(Long id, Pageable pageable);
 //    @Modifying
 //    @Query(value = "DELETE FROM News n1, News n2  " +
 //        "WHERE n1.id > n2.id " +
