@@ -1,4 +1,4 @@
-package me.gisa.api.datatool.common;
+package me.gisa.api.daum.datatool.common;
 
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import feign.hystrix.FallbackFactory;

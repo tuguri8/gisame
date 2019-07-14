@@ -1,3 +1,18 @@
+server:
+  port: 8080
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:gisame;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    username: sa
+    initialize-mode: always
+  profiles:
+    active: local
+  h2:
+    console:
+      enabled: true
 # feign
 feign:
   client:
@@ -9,3 +24,6 @@ feign:
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
+daum-client:
+  ribbon:
+    listOfServers: https://dapi.kakao.com
