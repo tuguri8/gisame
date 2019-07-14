@@ -1,11 +1,9 @@
-package me.gisa.api.datatool;
+package me.gisa.api.daum.datatool;
 
 import feign.Feign;
 import feign.Retryer;
-import me.gisa.api.datatool.rss.RssClient;
-import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.datatool.naver.NaverClient;
-import me.gisa.api.datatool.sisemi.SisemeClient;
+import me.gisa.api.daum.datatool.daum.DaumSearchClient;
+import me.gisa.api.daum.datatool.siseme.SisemeClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +21,10 @@ public class DataToolConfig {
     }
 
     @Bean
-    public NaverClient naverClient() {
+    public DaumSearchClient daumSearchClient() {
         return Feign.builder()
                     .contract(new SpringMvcContract())
                     .retryer(new Retryer.Default())
-                    .target(NaverClient.class, "naver-client");
-    }
-    @Bean
-    public RssClient rssClient() {
-        return Feign.builder()
-                .contract(new SpringMvcContract())
-                .retryer(new Retryer.Default())
-                .target(RssClient.class, "rss-client");
+                    .target(DaumSearchClient.class, "daum-client");
     }
 }
