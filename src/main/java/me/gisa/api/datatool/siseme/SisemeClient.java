@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "siseme-client", fallbackFactory = SisemeClientFallbackFactory.class)
+@FeignClient(name = "siseme-client")
 public interface SisemeClient {
     @GetMapping("/dev/api/v1/regions/type/{regionType}")
     Optional<List<Region>> getRegionList(@PathVariable("regionType") String regionType);

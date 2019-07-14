@@ -1,4 +1,4 @@
-package me.gisa.api.datatool.common.utils;
+package me.gisa.api.common.utils;
 
 import org.springframework.stereotype.Component;
 

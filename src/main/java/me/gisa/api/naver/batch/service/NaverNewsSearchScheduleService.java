@@ -1,6 +1,6 @@
 package me.gisa.api.naver.batch.service;
 
-import me.gisa.api.datatool.naver.model.v1.V1NaverNewsResponse;
+import me.gisa.api.datatool.naver.model.V1NaverNewsResponse;
 
 import java.util.Optional;
 

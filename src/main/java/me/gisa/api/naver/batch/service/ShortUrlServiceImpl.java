@@ -1,6 +1,6 @@
 package me.gisa.api.naver.batch.service;
 
-import me.gisa.api.datatool.common.utils.ShortUrlBuilder;
+import me.gisa.api.common.utils.ShortUrlBuilder;
 import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.repository.entity.News;
 import org.apache.commons.lang.StringUtils;

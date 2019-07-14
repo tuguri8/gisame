@@ -1,4 +1,4 @@
-package me.gisa.api.datatool.naver.model.v1;
+package me.gisa.api.datatool.naver.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 

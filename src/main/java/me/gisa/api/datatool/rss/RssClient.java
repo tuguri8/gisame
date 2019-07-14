@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
-@FeignClient(name = "rss-client", fallbackFactory = RssClientFallbackFactory.class)
+@FeignClient(name = "rss-client")
 public interface RssClient {
         @GetMapping("rss/search/{regionName}")
         Optional<List<NewsfromRssResponse>> getNewsfromRssList (@PathVariable("regionName") String regionName);
