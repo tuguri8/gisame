@@ -1,7 +1,7 @@
 package me.gisa.api.daum.service;
 
 import me.gisa.api.datatool.daum.DaumSearchClient;
-import me.gisa.api.datatool.daum.model.DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.V1DaumSearchResponse;
 import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.datatool.siseme.model.RegionGroup;
@@ -81,13 +81,13 @@ public class NewsServicempl implements NewsService {
                    .collect(Collectors.toList());
     }
 
-    private DaumNews transform(SisemeResultModel sisemeResultModel, DaumSearchResponse.Documents documents) {
+    private DaumNews transform(SisemeResultModel sisemeResultModel, V1DaumSearchResponse.Documents documents) {
         DaumNews daumNews = new DaumNews();
         daumNews.setType(sisemeResultModel.getType());
         daumNews.setCode(sisemeResultModel.getCode());
         daumNews.setKeyword(sisemeResultModel.getKeyword());
         daumNews.setTitle(documents.getTitle());
-        daumNews.setDatetime(documents.getDatetime());
+        daumNews.setDatetime(documents.getDatetime().toString());
         daumNews.setUrl(documents.getUrl());
         daumNews.setContents(documents.getContents());
         return daumNews;

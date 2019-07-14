@@ -26,14 +26,14 @@ public class News extends BaseEntity implements Serializable {
     private String content;
     private String originalLink;    //언론사 url
     private String subLink;         //???서브 url?
-    private LocalDate pubDate;
+    private String pubDate;
 
     private String regionCode;
     private String summary;
 
 
     @Enumerated(EnumType.STRING)
-    private String searchKeyword;
+    private KeywordType searchKeyword;
 
     @Enumerated(EnumType.STRING)
     private NewsType newsType;        //NAVER, KAKAO
@@ -98,11 +98,11 @@ public class News extends BaseEntity implements Serializable {
         this.subLink = subLink;
     }
 
-    public LocalDate getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(LocalDate pubDate) {
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 
@@ -122,11 +122,11 @@ public class News extends BaseEntity implements Serializable {
         this.summary = summary;
     }
 
-    public String getSearchKeyword() {
+    public KeywordType getSearchKeyword() {
         return searchKeyword;
     }
 
-    public void setSearchKeyword(String searchKeyword) {
+    public void setSearchKeyword(KeywordType searchKeyword) {
         this.searchKeyword = searchKeyword;
     }
 

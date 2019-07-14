@@ -1,6 +1,5 @@
 package me.gisa.api.controller;
 
-import me.gisa.api.naver.controller.model.PageVO;
 import me.gisa.api.service.model.NewsModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,8 @@ public class NewsController {
                                        @RequestParam("endDate") String endDate,
                                        @RequestParam("regionCode") String regionCode,
                                        @RequestParam("searchKeyword") String searchKeyword,
-                                       @RequestParam("newsType") String newsType,
-                                       PageVO page) {
+                                       @RequestParam("newsType") String newsType
+                                       ) {
         return null;
     }
 }

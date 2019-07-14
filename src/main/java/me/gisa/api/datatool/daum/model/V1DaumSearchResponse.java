@@ -1,8 +1,9 @@
 package me.gisa.api.datatool.daum.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-public class DaumSearchResponse {
+public class V1DaumSearchResponse {
     private Meta meta;
     private List<Documents> documents;
 
