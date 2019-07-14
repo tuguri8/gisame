@@ -1,9 +1,14 @@
+server:
+  port: 8080
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     platform: h2
-    url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    url: jdbc:h2:mem:gisame;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     username: sa
-  profiles:
+    initialize-mode: always
+ profiles:
     active: local
   h2:
     console:
@@ -26,21 +31,17 @@ feign:
         connectTimeout: 3000
         readTimeout: 3000
         loggerLevel: basic
-
-
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
-
-
+daum-client:
+  ribbon:
+    listOfServers: https://dapi.kakao.com
 naver-client:
   ribbon:
     listOfServers: https://openapi.naver.com
-
 
 naver:
   api:
     clientId: hdcD8fXsfj5HNEYcSqVL
     clientSecret: ZxcJpcmOlH
-
-
