@@ -1,13 +1,9 @@
-package me.gisa.api.daum.datatool.daum;
+package me.gisa.api.datatool.daum;
 
 import me.gisa.api.daum.datatool.common.LoggingFallbackFactory;
-import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.DaumSearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 public class DaumSearchClientFallbackFactory implements LoggingFallbackFactory<DaumSearchClient> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

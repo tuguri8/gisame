@@ -1,7 +1,5 @@
-package me.gisa.api.daum.datatool.siseme;
+package me.gisa.api.datatool.siseme;
 
-import me.gisa.api.daum.datatool.siseme.SisemeClient;
-import me.gisa.api.daum.datatool.siseme.SisemeClientFallbackFactory;
 import org.junit.Before;
 import org.junit.Test;
 

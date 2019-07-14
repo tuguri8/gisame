@@ -1,9 +1,6 @@
-package me.gisa.api.daum.datatool.daum.model;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package me.gisa.api.datatool.daum.model;
 
 import java.util.List;
-import java.util.Objects;
 
 public class DaumSearchResponse {
     private Meta meta;

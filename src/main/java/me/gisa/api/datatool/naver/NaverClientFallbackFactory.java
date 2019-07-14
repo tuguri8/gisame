@@ -4,7 +4,6 @@ import me.gisa.api.datatool.common.LoggingFallbackFactory;
 import me.gisa.api.datatool.naver.model.v1.V1NaverNewsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.invoke.empty.Empty;
 
 import java.util.Optional;
 

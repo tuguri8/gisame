@@ -1,7 +1,7 @@
 package me.gisa.api.naver.batch.service;
 
-import me.gisa.api.datatool.sisemi.model.Region;
-import me.gisa.api.datatool.sisemi.model.RegionType;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionType;
 
 import java.util.List;
 import java.util.Optional;

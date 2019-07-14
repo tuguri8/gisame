@@ -1,13 +1,9 @@
-package me.gisa.api.daum.datatool.daum;
+package me.gisa.api.datatool.daum;
 
-import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.DaumSearchResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Optional;
 
 @FeignClient(name = "daum-client", fallbackFactory = DaumSearchClientFallbackFactory.class)
 public interface DaumSearchClient {

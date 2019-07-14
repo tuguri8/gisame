@@ -1,11 +1,11 @@
 package me.gisa.api.daum.service;
 
-import me.gisa.api.daum.datatool.siseme.model.RegionGroup;
-import me.gisa.api.daum.datatool.siseme.model.RegionType;
-import me.gisa.api.daum.datatool.daum.DaumSearchClient;
-import me.gisa.api.daum.datatool.daum.model.DaumSearchResponse;
-import me.gisa.api.daum.datatool.siseme.SisemeClient;
-import me.gisa.api.daum.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
+import me.gisa.api.datatool.daum.DaumSearchClient;
+import me.gisa.api.datatool.daum.model.DaumSearchResponse;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.daum.repository.entity.DaumNews;
 import org.apache.commons.collections4.ListUtils;
 import me.gisa.api.daum.repository.entity.DaumNewsRepository;

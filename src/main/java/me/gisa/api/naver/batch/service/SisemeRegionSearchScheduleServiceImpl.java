@@ -1,15 +1,13 @@
 package me.gisa.api.naver.batch.service;
 
-import me.gisa.api.datatool.sisemi.SisemeClient;
-import me.gisa.api.datatool.sisemi.model.Region;
-import me.gisa.api.datatool.sisemi.model.RegionGroup;
-import me.gisa.api.datatool.sisemi.model.RegionType;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 @Service
