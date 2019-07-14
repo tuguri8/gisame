@@ -2,6 +2,8 @@ package me.gisa.api.datatool;
 
 import feign.Feign;
 import feign.Retryer;
+import me.gisa.api.datatool.rss.RssClient;
+import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.naver.NaverClient;
 import me.gisa.api.datatool.sisemi.SisemeClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -26,5 +28,12 @@ public class DataToolConfig {
                     .contract(new SpringMvcContract())
                     .retryer(new Retryer.Default())
                     .target(NaverClient.class, "naver-client");
+    }
+    @Bean
+    public RssClient rssClient() {
+        return Feign.builder()
+                .contract(new SpringMvcContract())
+                .retryer(new Retryer.Default())
+                .target(RssClient.class, "rss-client");
     }
 }

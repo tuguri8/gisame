@@ -34,13 +34,13 @@ feign:
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
+
 daum-client:
   ribbon:
     listOfServers: https://dapi.kakao.com
 naver-client:
   ribbon:
     listOfServers: https://openapi.naver.com
-
 naver:
   api:
     clientId: hdcD8fXsfj5HNEYcSqVL
