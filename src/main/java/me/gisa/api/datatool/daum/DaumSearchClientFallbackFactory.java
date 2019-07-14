@@ -1,6 +1,6 @@
 package me.gisa.api.datatool.daum;
 
-import me.gisa.api.daum.datatool.common.LoggingFallbackFactory;
+import me.gisa.api.datatool.common.LoggingFallbackFactory;
 import me.gisa.api.datatool.daum.model.DaumSearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

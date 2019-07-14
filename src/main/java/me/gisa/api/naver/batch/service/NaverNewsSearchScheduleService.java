@@ -2,7 +2,6 @@ package me.gisa.api.naver.batch.service;
 
 import me.gisa.api.datatool.naver.model.v1.V1NaverNewsResponse;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface NaverNewsSearchScheduleService {

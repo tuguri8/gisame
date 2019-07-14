@@ -1,17 +1,17 @@
 package me.gisa.api.daum.service;
 
-import me.gisa.api.datatool.siseme.model.RegionGroup;
-import me.gisa.api.datatool.siseme.model.RegionType;
 import me.gisa.api.datatool.daum.DaumSearchClient;
 import me.gisa.api.datatool.daum.model.DaumSearchResponse;
 import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
 import me.gisa.api.daum.repository.entity.DaumNews;
-import org.apache.commons.collections4.ListUtils;
 import me.gisa.api.daum.repository.entity.DaumNewsRepository;
 import me.gisa.api.daum.service.model.DaumResultmodel;
 import me.gisa.api.daum.service.model.NewsBySisemeModel;
 import me.gisa.api.daum.service.model.SisemeResultModel;
+import org.apache.commons.collections4.ListUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

@@ -1,22 +1,21 @@
 package me.gisa.api.naver.repository.entity.common;
 
-import static java.time.Instant.ofEpochMilli;
-import static java.time.LocalDateTime.ofInstant;
-import static java.time.ZoneId.systemDefault;
-import static java.util.Objects.isNull;
-
-import java.time.LocalDateTime;
-import java.util.Date;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import static java.time.Instant.ofEpochMilli;
+import static java.time.LocalDateTime.ofInstant;
+import static java.time.ZoneId.systemDefault;
+import static java.util.Objects.isNull;
 
 @MappedSuperclass
 @EntityListeners(value = {AuditingEntityListener.class})

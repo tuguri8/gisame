@@ -1,14 +1,12 @@
 package me.gisa.api.naver.service;
 
-import com.google.common.collect.Lists;
-import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.controller.model.NewsResponse;
+import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.repository.entity.News;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
