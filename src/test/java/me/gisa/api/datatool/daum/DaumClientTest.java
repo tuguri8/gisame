@@ -1,6 +1,6 @@
 package me.gisa.api.datatool.daum;
 
-import me.gisa.api.datatool.daum.model.DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.v1.V1DaumNewsResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class DaumClientTest {
 
     @Test
     public void getNews() {
-        DaumSearchResponse daumSearchResponse = daumSearchClient.getNews("서울 부동산", "recency");
+        V1DaumNewsResponse daumSearchResponse = daumSearchClient.getNews("서울 부동산", "recency");
         assertThat(daumSearchResponse).isNotNull();
     }
 }

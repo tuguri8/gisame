@@ -1,16 +1,16 @@
-package me.gisa.api.datatool.rss.model;
+package me.gisa.api.datatool.rss.model.v1;
 
 
 import me.gisa.api.rss.service.model.NewsfromRssModel;
 
-public class NewsfromRssResponse {
+public class V1RssNewsResponse {
 
     private String title ;
     private String originalLink;
     private String elapsedDays; //경과일
     private String description ;
 
-    public NewsfromRssResponse(NewsfromRssModel newsfromRssModel) {
+    public V1RssNewsResponse(NewsfromRssModel newsfromRssModel) {
         this.title=newsfromRssModel.getTitle();
         this.originalLink=newsfromRssModel.getOriginalLink();
         this.elapsedDays=newsfromRssModel.getElapsedDays();

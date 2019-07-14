@@ -1,8 +1,8 @@
-package me.gisa.api.datatool.daum.model;
+package me.gisa.api.datatool.daum.model.v1;
 
 import java.util.List;
 
-public class DaumSearchResponse {
+public class V1DaumNewsResponse {
     private Meta meta;
     private List<Documents> documents;
 

@@ -1,9 +1,9 @@
 package me.gisa.api.naver.batch.service;
 
 import me.gisa.api.datatool.naver.NaverClient;
-import me.gisa.api.datatool.naver.model.V1NaverNewsItems;
-import me.gisa.api.datatool.naver.model.V1NaverNewsKeyword;
-import me.gisa.api.datatool.naver.model.V1NaverNewsResponse;
+import me.gisa.api.datatool.naver.model.v1.V1NaverNewsItems;
+import me.gisa.api.datatool.naver.model.v1.V1NaverNewsKeyword;
+import me.gisa.api.datatool.naver.model.v1.V1NaverNewsResponse;
 import me.gisa.api.naver.repository.NewsRepository;
 import me.gisa.api.naver.repository.entity.News;
 import org.modelmapper.ModelMapper;

@@ -1,6 +1,6 @@
 package me.gisa.api.datatool.naver;
 
-import me.gisa.api.datatool.naver.model.V1NaverNewsResponse;
+import me.gisa.api.datatool.naver.model.v1.V1NaverNewsResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
