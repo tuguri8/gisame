@@ -19,7 +19,7 @@ public class Document {
     public String pubDate;
 
     @XmlElement(name="description")
-    public String description;
+    public String summary;
 
     public String getTitle(){
         return title;
@@ -42,11 +42,11 @@ public class Document {
         this.pubDate = pubDate;
     }
 
-    public String getDescription(){
-        return description;
+    public String getSummary(){
+        return summary;
     }
-    public void setDescription(String description){
-        this.description = description;
+    public void setSummary(String summary){
+        this.summary = summary;
     }
 
 }

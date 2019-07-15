@@ -1,7 +1,7 @@
 package me.gisa.api.naver.controller;
 
-import me.gisa.api.naver.controller.model.PageVO;
 import me.gisa.api.naver.controller.model.NewsResponse;
+import me.gisa.api.naver.controller.model.PageVO;
 import me.gisa.api.naver.service.NaverNewsService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;

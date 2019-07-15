@@ -1,10 +1,6 @@
 package me.gisa.api.datatool.naver.model.v1;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public enum V1NaverNewsKeyword {
 

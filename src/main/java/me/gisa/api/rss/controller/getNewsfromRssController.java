@@ -1,9 +1,9 @@
 package me.gisa.api.rss.controller;
 
-import me.gisa.api.datatool.rss.model.NewsfromRssResponse;
+import me.gisa.api.datatool.rss.model.v1.V1RssNewsResponse;
 import me.gisa.api.rss.repository.NewsfromrssRepository;
 import me.gisa.api.rss.repository.entity.Newsfromrss;
-import me.gisa.api.rss.service.getNewsfromRssService;
+import me.gisa.api.rss.service.GoogleNewsService;
 import me.gisa.api.rss.service.model.NewsfromRssModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +19,10 @@ import java.util.List;
 
 @RestController
 public class getNewsfromRssController {
-    private final me.gisa.api.rss.service.getNewsfromRssService getNewsfromRssService;
+    private final GoogleNewsService GoogleNewsService;
     private final NewsfromrssRepository newsfromrssRepository;
-    public getNewsfromRssController(getNewsfromRssService getNewsfromRssService,NewsfromrssRepository newsfromrssRepository){
-        this.getNewsfromRssService=getNewsfromRssService;
+    public getNewsfromRssController(GoogleNewsService GoogleNewsService, NewsfromrssRepository newsfromrssRepository){
+        this.GoogleNewsService = GoogleNewsService;
         this.newsfromrssRepository=newsfromrssRepository;
 
     }
@@ -30,13 +30,13 @@ public class getNewsfromRssController {
     //google rss에서 직접 뉴스기사 가져옴
     @GetMapping("api/rss/{region}")
     @ResponseBody
-    public List<NewsfromRssResponse> getNewsFromRss (@PathVariable String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException {
-        List<NewsfromRssResponse> newsfromRssResponseList = new ArrayList<NewsfromRssResponse>();
-        List<NewsfromRssModel> newsfromRssModelList = getNewsfromRssService.getNewsfromRss(region);
+    public List<V1RssNewsResponse> getNewsFromRss (@PathVariable String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException {
+        List<V1RssNewsResponse> newsfromRssResponseList = new ArrayList<V1RssNewsResponse>();
+        List<NewsfromRssModel> newsfromRssModelList = GoogleNewsService.getNewsfromRss(region);
 
 
         for(NewsfromRssModel newsfromRssModel : newsfromRssModelList){
-            NewsfromRssResponse newsfromRssResponse=new NewsfromRssResponse(newsfromRssModel);
+            V1RssNewsResponse newsfromRssResponse=new V1RssNewsResponse(newsfromRssModel);
             newsfromRssResponseList.add(newsfromRssResponse);
         }
         return newsfromRssResponseList;
@@ -45,8 +45,8 @@ public class getNewsfromRssController {
     @GetMapping("api/rss/save/{region}")
     @ResponseBody
     public List<Newsfromrss> saveNewsFromRsstoDB (@PathVariable String region) throws URISyntaxException, MalformedURLException, UnsupportedEncodingException, JAXBException {
-        List<NewsfromRssResponse> newsfromRssResponseList = new ArrayList<NewsfromRssResponse>();
-        getNewsfromRssService.saveNewsfromRssToDB(region);
+        List<V1RssNewsResponse> newsfromRssResponseList = new ArrayList<V1RssNewsResponse>();
+        GoogleNewsService.saveNewsfromRssToDB(region);
         List<Newsfromrss> newsfromDB = newsfromrssRepository.findByRegionNameContaining((region));
 
         return newsfromDB;

@@ -1,12 +1,14 @@
 package me.gisa.api.rss.service.model;
 
+import java.time.LocalDate;
+
 public class NewsfromRssModel {
     private String title ;
     private String originalLink;
-    private String shortLink;
-    private String pubDate;
-    private String elapsedDays; //경과일
-    private String description ;
+    private String subLink;
+    private LocalDate pubDate;
+    private String summary ;
+    private String content;
 
     public String getTitle(){
         return title;
@@ -22,31 +24,31 @@ public class NewsfromRssModel {
         this.originalLink = originalLink;
     }
 
-    public String getShortLink(){
-        return shortLink;
+    public String getSubLink(){
+        return subLink;
     }
-    public void setShortLink(String shortLink){
-        this.shortLink = shortLink;
-    }
-
-    public String getElapsedDays(){
-        return elapsedDays;
-    }
-    public void setElapsedDays(String elapsedDays) {
-        this.elapsedDays = elapsedDays;
+    public void setSubLink(String subLink){
+        this.subLink = subLink;
     }
 
-    public String getPubDate(){
+    public LocalDate getPubDate(){
         return pubDate;
     }
-    public void setPubDate(String pubDate){
+    public void setPubDate(LocalDate pubDate){
         this.pubDate = pubDate;
     }
 
-    public String getDescription(){
-        return description;
+    public String getSummary(){
+        return summary;
     }
-    public void setDescription(String description){
-        this.description = description;
+    public void setSummary(String summary){
+        this.summary = summary;
+    }
+
+    public String getContent(){
+        return content;
+    }
+    public void setContent(String content){
+        this.content = content;
     }
 }

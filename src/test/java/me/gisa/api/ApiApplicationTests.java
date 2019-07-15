@@ -1,8 +1,8 @@
 package me.gisa.api;
 
-import me.gisa.api.datatool.sisemi.SisemeClient;
-import me.gisa.api.datatool.sisemi.model.RegionGroup;
-import me.gisa.api.datatool.sisemi.model.RegionType;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
 import me.gisa.api.naver.batch.service.NaverNewsSearchScheduleService;
 import me.gisa.api.naver.batch.service.SisemeRegionSearchScheduleService;
 import me.gisa.api.naver.repository.NewsRepository;

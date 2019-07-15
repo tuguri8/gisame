@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
-@FeignClient(name = "naver-client", fallbackFactory = NaverClientFallbackFactory.class, configuration = NaverClientConfiguration.class)
+@FeignClient(name = "naver-client")
 public interface NaverClient {
 
     @GetMapping(value = "/v1/search/news.json")
