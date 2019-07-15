@@ -60,19 +60,17 @@ public class DaumNewsServicempl implements NewsService {
                                .collect(Collectors.toList());
     }
 
-
-
     // 시세미 API 검색 결과로 다음 검색 DB 저장 스케쥴러
     @Override
     @Scheduled(cron = "* */2 * * * *")
     public void sync() {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO),
-                                                     getSisemeResult(RegionType.GUNGU));
+                                                                        getSisemeResult(RegionType.GUNGU));
         List<News> priorResult = newsRepository.findAllByNewsType(NewsType.DAUM).orElse(Collections.EMPTY_LIST);
         List<News> searchResult = sisemeResultModelList.stream()
-                                                      .map(this::getDaumResult)
-                                                      .flatMap(Collection::stream)
-                                                      .collect(Collectors.toList());
+                                                       .map(this::getDaumResult)
+                                                       .flatMap(Collection::stream)
+                                                       .collect(Collectors.toList());
         // 검색된 결과에서 이전 DB 결과랑 비교하여 중복 결과를 제거
         searchResult.removeIf(newNews -> priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newNews)));
         newsRepository.saveAll(searchResult);
@@ -87,8 +85,10 @@ public class DaumNewsServicempl implements NewsService {
         StringTokenizer st = new StringTokenizer(region.getFullName());
         String keyword = st.nextToken();
         keyword = st.hasMoreTokens() ? (RegionGroup.findByRegionName(keyword)
-                                                   .getKeyword()+ " " + st.nextToken()) + "" + KeywordType.BOODONGSAN.getKeyword() : RegionGroup.findByRegionName(keyword)
-                                                                                                                         .getKeyword() + "" + KeywordType.BOODONGSAN.getKeyword();
+                                                   .getKeyword() + " " + st.nextToken()) + "" + KeywordType.BOODONGSAN.getKeyword() :
+            RegionGroup
+                .findByRegionName(keyword)
+                .getKeyword() + "" + KeywordType.BOODONGSAN.getKeyword();
         SisemeResultModel sisemeResultModel = new SisemeResultModel();
         sisemeResultModel.setType(region.getType());
         sisemeResultModel.setCode(region.getCode());
@@ -98,7 +98,7 @@ public class DaumNewsServicempl implements NewsService {
     }
 
     private News transform(SisemeResultModel sisemeResultModel, V1DaumSearchResponse.Documents documents) {
-        News news= new News();
+        News news = new News();
         news.setTitle(documents.getTitle());
         news.setContent(documents.getContents());
         news.setSubLink(documents.getUrl());

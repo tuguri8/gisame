@@ -2,6 +2,7 @@ package me.gisa.api.service;
 
 import com.google.common.collect.Lists;
 import me.gisa.api.repository.entity.News;
+import org.apache.tomcat.jni.Local;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -49,6 +50,7 @@ public class DaumNewsServicemplTest {
         searchResult.removeIf(newNews -> priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newNews)));
         log.info(searchResult.get(0).toString());
     }
+
 
     private Boolean isSameUrl(News priorNews, News searchNews) {
         return priorNews.getSubLink().equals(searchNews.getSubLink());
