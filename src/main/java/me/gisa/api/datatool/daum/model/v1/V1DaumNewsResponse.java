@@ -3,7 +3,7 @@ package me.gisa.api.datatool.daum.model.v1;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class V1DaumSearchResponse {
+public class V1DaumNewsResponse {
     private Meta meta;
     private List<Documents> documents;
 
