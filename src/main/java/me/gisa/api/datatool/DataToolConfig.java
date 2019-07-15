@@ -3,7 +3,7 @@ package me.gisa.api.datatool;
 import feign.Feign;
 import feign.Retryer;
 import me.gisa.api.datatool.rss.RssClient;
-import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.sisemi.SisemeClient;
 import me.gisa.api.datatool.naver.NaverClient;
 import me.gisa.api.datatool.sisemi.SisemeClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;

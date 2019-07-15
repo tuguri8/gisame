@@ -1,6 +1,6 @@
 package me.gisa.api.rss.service;
 
-import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.sisemi.SisemeClient;
 import me.gisa.api.rss.repository.entity.Newsfromrss;
 import me.gisa.api.rss.repository.NewsfromrssRepository;
 import me.gisa.api.rss.service.model.Document;
