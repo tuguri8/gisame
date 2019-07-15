@@ -1,6 +1,6 @@
 package me.gisa.api.controller;
 
-import me.gisa.api.service.GisameService;
+import me.gisa.api.service.gisame.GisameService;
 import me.gisa.api.service.model.NewsModel;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;

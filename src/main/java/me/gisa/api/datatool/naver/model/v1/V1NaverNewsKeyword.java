@@ -1,4 +1,4 @@
-package me.gisa.api.datatool.naver.model;
+package me.gisa.api.datatool.naver.model.v1;
 
 import java.util.Arrays;
 

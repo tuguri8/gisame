@@ -1,7 +1,7 @@
-package me.gisa.api.service;
+package me.gisa.api.service.news;
 
 import me.gisa.api.datatool.daum.DaumSearchClient;
-import me.gisa.api.datatool.daum.model.V1DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.v1.V1DaumSearchResponse;
 import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.datatool.siseme.model.RegionGroup;
@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Collections;

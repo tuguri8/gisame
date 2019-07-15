@@ -1,4 +1,4 @@
-package me.gisa.api.service;
+package me.gisa.api.service.gisame;
 
 import me.gisa.api.common.utils.LocalDateParser;
 import me.gisa.api.repository.entity.KeywordType;
@@ -7,8 +7,6 @@ import me.gisa.api.repository.entity.NewsRepository;
 import me.gisa.api.repository.entity.NewsType;
 import me.gisa.api.service.model.NewsModel;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package me.gisa.api.datatool.daum;
 
-import me.gisa.api.datatool.daum.model.V1DaumSearchResponse;
+import me.gisa.api.datatool.daum.model.v1.V1DaumSearchResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

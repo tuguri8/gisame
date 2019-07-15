@@ -1,4 +1,4 @@
-package me.gisa.api.service;
+package me.gisa.api.service.gisame;
 
 import me.gisa.api.service.model.NewsModel;
 import org.springframework.data.domain.Pageable;
