@@ -1,31 +1,35 @@
 package me.gisa.api.service;
 
-import com.google.common.collect.Lists;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
+import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.News;
-import org.apache.tomcat.jni.Local;
+import me.gisa.api.service.model.SisemeResultModel;
+import org.apache.commons.collections4.ListUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import java.util.Optional;
+import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class DaumNewsServicemplTest {
+
+    @Autowired
+    private SisemeClient sisemeClient;
 
     private static final Logger log = LoggerFactory.getLogger(DaumNewsServicemplTest.class);
 
@@ -49,6 +53,33 @@ public class DaumNewsServicemplTest {
         searchResult.addAll(Arrays.asList(news1, news3));
         searchResult.removeIf(newNews -> priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newNews)));
         log.info(searchResult.get(0).toString());
+    }
+
+    private List getSisemeResult(RegionType regionType) {
+        Optional<List<Region>> sisemeResult = sisemeClient.getRegionList(regionType.name());
+        return sisemeResult.map(regions -> regions
+            .stream()
+            .map(Region::getFullName)
+            .collect(Collectors.toList())).orElse(Collections.EMPTY_LIST);
+    }
+
+    private String getKeyword(String name) {
+        StringTokenizer st = new StringTokenizer(name);
+        String keyword = st.nextToken();
+        keyword = st.hasMoreTokens() ? (RegionGroup.findByRegionName(keyword)
+                                                   .getKeyword() + " " + st.nextToken()) + " " + KeywordType.BOODONGSAN.getKeyword() :
+            RegionGroup
+                .findByRegionName(keyword)
+                .getKeyword() + " " + KeywordType.BOODONGSAN.getKeyword();
+        return keyword;
+    }
+
+    @Test
+    public void 시세미_Enum_null_체크_테스트() {
+        List sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO),
+                                                     getSisemeResult(RegionType.GUNGU));
+        List<String> keywordList = (List<String>) sisemeResultModelList.stream().map(fullName -> getKeyword((String) fullName)).collect(Collectors.toList());
+        log.info(keywordList.toString());
     }
 
 

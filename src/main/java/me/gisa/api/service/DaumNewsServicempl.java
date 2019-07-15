@@ -85,10 +85,10 @@ public class DaumNewsServicempl implements NewsService {
         StringTokenizer st = new StringTokenizer(region.getFullName());
         String keyword = st.nextToken();
         keyword = st.hasMoreTokens() ? (RegionGroup.findByRegionName(keyword)
-                                                   .getKeyword() + " " + st.nextToken()) + "" + KeywordType.BOODONGSAN.getKeyword() :
+                                                   .getKeyword() + " " + st.nextToken()) + " " + KeywordType.BOODONGSAN.getKeyword() :
             RegionGroup
                 .findByRegionName(keyword)
-                .getKeyword() + "" + KeywordType.BOODONGSAN.getKeyword();
+                .getKeyword() + " " + KeywordType.BOODONGSAN.getKeyword();
         SisemeResultModel sisemeResultModel = new SisemeResultModel();
         sisemeResultModel.setType(region.getType());
         sisemeResultModel.setCode(region.getCode());
