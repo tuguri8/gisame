@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -101,7 +102,7 @@ public class DaumNewsServicempl implements NewsService {
         news.setTitle(documents.getTitle());
         news.setContent(documents.getContents());
         news.setSubLink(documents.getUrl());
-        news.setPubDate(documents.getDatetime());
+        news.setPubDate(ZonedDateTime.parse(documents.getDatetime()).toLocalDate());
         news.setRegionCode(sisemeResultModel.getCode());
         news.setNewsType(NewsType.DAUM);
         news.setSearchKeyword(sisemeResultModel.getSearchKeyword());
