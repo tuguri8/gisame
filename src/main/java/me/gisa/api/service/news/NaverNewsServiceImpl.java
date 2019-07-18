@@ -28,8 +28,7 @@ import java.util.stream.Collectors;
 public class NaverNewsServiceImpl implements NewsService {
 
     private static final Logger log = LoggerFactory.getLogger(NaverNewsServiceImpl.class);
-    private static Integer start_call = 1;
-    private static final Integer END_CALL = 1000;
+    private static final Integer END_CALL = 100;
 
     private static final NewsType NEWS_TYPE = NewsType.NAVER;
     private static final KeywordType SEARCH_KEYWORD = KeywordType.BOODONGSAN;
@@ -65,16 +64,18 @@ public class NaverNewsServiceImpl implements NewsService {
 
     private List<News> getNewsList(Region region) {
         List<News> newsList = Lists.newArrayList();
-        while (start_call++ <= END_CALL) {
+        int start = 1;
+        while (start++ <= END_CALL) {
+
             V1NaverNewsResponse v1NaverNewsResponse = naverClient.getNewsList(transform(region.getFullName()) + " " + transform(
-            ), "100", start_call);
+            ), "100", start);
 
             List<News> tempNewsList = v1NaverNewsResponse.getItems().stream().map(item -> transform(item, region, SEARCH_KEYWORD))
                                                          .collect(Collectors.toList());
             newsList.addAll(tempNewsList);
             log.info("======[{}로 검색한 {}번째 페이지의 뉴스갯수 ] : {}",
                      region.getFullName() + " " + SEARCH_KEYWORD.getKeyword(),
-                     start_call,
+                     start,
                      v1NaverNewsResponse.getItems().size());
             try {
                 Thread.sleep(200);
