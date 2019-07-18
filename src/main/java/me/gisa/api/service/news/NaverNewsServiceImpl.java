@@ -45,7 +45,7 @@ public class NaverNewsServiceImpl implements NewsService {
     }
 
     @Override
-    @Scheduled(cron = "* */2 * * * *")
+    @Scheduled(cron = "* */5 * * * *")
     public void sync() {
 
         try {
@@ -53,15 +53,14 @@ public class NaverNewsServiceImpl implements NewsService {
             List<Region> regionList = getRegionList();
             List<News> originNewsList = newsRepository.findAllByNewsType(NEWS_TYPE).orElse(Collections.EMPTY_LIST);
             List<News> newsList = regionList.stream().map(this::getNewsList).flatMap(Collection::stream).collect(Collectors.toList());
-//            log.info("=====[DB 뉴스 갯수] : {}", originNewsList.size());
-//            log.info("=====[중복 제거 전 뉴스 갯수] : {}", newsList.size());
+            log.info("=====[DB 뉴스 갯수] : {}", originNewsList.size());
+            log.info("=====[중복 제거 전 뉴스 갯수] : {}", newsList.size());
             newsList.removeIf(newNews -> originNewsList.stream().anyMatch(originNews -> isDuplicated(originNews, newNews)));
-//            log.info("=====[중복 제거 후 뉴스 갯수] : {}", newsList.size());
+            log.info("=====[중복 제거 후 뉴스 갯수] : {}", newsList.size());
             newsRepository.saveAll(newsList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     private List<News> getNewsList(Region region) {
