@@ -72,10 +72,10 @@ public class NaverNewsServiceImpl implements NewsService {
             List<News> tempNewsList = v1NaverNewsResponse.getItems().stream().map(item -> transform(item, region, SEARCH_KEYWORD))
                                                          .collect(Collectors.toList());
             newsList.addAll(tempNewsList);
-//            log.info("======[{}로 검색한 {}번째 페이지의 뉴스갯수 ] : {}",
-//                     region.getFullName() + " " + SEARCH_KEYWORD.getKeyword(),
-//                     start_call,
-//                     v1NaverNewsResponse.getItems().size());
+            log.info("======[{}로 검색한 {}번째 페이지의 뉴스갯수 ] : {}",
+                     region.getFullName() + " " + SEARCH_KEYWORD.getKeyword(),
+                     start_call,
+                     v1NaverNewsResponse.getItems().size());
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
