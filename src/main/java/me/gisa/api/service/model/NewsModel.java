@@ -7,15 +7,15 @@ import java.time.LocalDate;
 public class NewsModel {
     private String title;
     private String content;
-    private String originalLink;    //언론사 url
-    private String subLink;         //???서브 url?
+    private String originalLink;
+    private String subLink;
     private LocalDate pubDate;
 
     private String regionCode;
     private String summary;
 
     private String searchKeyword;
-    private String newsType;        //NAVER, KAKAO
+    private String newsType;
 
     public String getTitle() {
         return title;
