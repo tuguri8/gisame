@@ -43,42 +43,42 @@ public class NewsServicempl implements NewsService {
     public List getSisemeResult(RegionType regionType) {
         Optional<List<Region>> sisemeResult = sisemeClient.getRegionList(regionType.name());
         return sisemeResult.map(regions -> regions
-            .stream()
-            .map(this::transform)
-            .collect(Collectors.toList())).orElse(Collections.EMPTY_LIST);
+                .stream()
+                .map(this::transform)
+                .collect(Collectors.toList())).orElse(Collections.EMPTY_LIST);
     }
 
     @Override
     public List<DaumResultmodel> getDaumResult(String query) {
         return daumSearchClient.getNews(query, "recency")
-                               .getDocuments()
-                               .stream()
-                               .map(document -> modelMapper.map(document, DaumResultmodel.class))
-                               .collect(Collectors.toList());
+                .getDocuments()
+                .stream()
+                .map(document -> modelMapper.map(document, DaumResultmodel.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<DaumNews> getDaumResult(SisemeResultModel sisemeResultModel) {
         return daumSearchClient.getNews(sisemeResultModel.getKeyword(), "recency")
-                               .getDocuments()
-                               .stream()
-                               .map(documents -> transform(sisemeResultModel, documents))
-                               .collect(Collectors.toList());
+                .getDocuments()
+                .stream()
+                .map(documents -> transform(sisemeResultModel, documents))
+                .collect(Collectors.toList());
     }
 
     @Override
     @Scheduled(cron = "0 0 0/1 * * *")
     public void getNewsBySiseme() {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO),
-                                                                        getSisemeResult(RegionType.GUNGU));
+                getSisemeResult(RegionType.GUNGU));
         List<DaumNews> batchResult = sisemeResultModelList.stream()
-                                                          .map(this::getDaumResult)
-                                                          .flatMap(Collection::stream)
-                                                          .collect(Collectors.toList());
+                .map(this::getDaumResult)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
         daumNewsRepository.saveAll(batchResult);
         batchResult.stream()
-                   .map(x -> modelMapper.map(x, NewsBySisemeModel.class))
-                   .collect(Collectors.toList());
+                .map(x -> modelMapper.map(x, NewsBySisemeModel.class))
+                .collect(Collectors.toList());
     }
 
     private DaumNews transform(SisemeResultModel sisemeResultModel, V1DaumNewsResponse.Documents documents) {
@@ -97,8 +97,8 @@ public class NewsServicempl implements NewsService {
         StringTokenizer st = new StringTokenizer(region.getFullName());
         String keyword = st.nextToken();
         keyword = st.hasMoreTokens() ? (RegionGroup.findByRegionName(keyword)
-                                                   .getKeyword() + " " + st.nextToken()) : RegionGroup.findByRegionName(keyword)
-                                                                                                      .getKeyword();
+                .getKeyword() + " " + st.nextToken()) : RegionGroup.findByRegionName(keyword)
+                .getKeyword();
         SisemeResultModel sisemeResultModel = new SisemeResultModel();
         sisemeResultModel.setType(region.getType());
         sisemeResultModel.setCode(region.getCode());

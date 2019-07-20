@@ -17,6 +17,7 @@ public class NewsFromRss {
     private String title;
     @Lob
     private String summary;
+    //(기사 본문)
     @Lob
     private String content;
     private LocalDate pubDate;

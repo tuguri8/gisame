@@ -54,6 +54,10 @@ public class GoogleNewsServiceImpl implements GoogleNewsService {
     public void saveNewsFromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
         List<NewsFromRssModel> newsFromRssModelList = getNewsFromRss(region);
 
+        List<NewsFromRss> newsListFromDB = newsfromrssRepository.findAll();
+        newsFromRssModelList.removeIf(duplicatedNews -> newsListFromDB.stream().anyMatch(newsFromDB -> duplicatedNews.getOriginalLink().equals(newsFromDB
+                .getOriginalLink())));
+
         for (NewsFromRssModel newsfromRssModel : newsFromRssModelList) {
             NewsFromRss newsfromrss = new NewsFromRss();
 
@@ -67,8 +71,8 @@ public class GoogleNewsServiceImpl implements GoogleNewsService {
         }
     }
 
-    //하루 단위로 기사 데이터베이스 저장하기
-    @Scheduled(cron = "* * * */1 * *")
+    // 단위로 기사 데이터베이스 저장하기
+    // @Scheduled(cron = "* */2 * * * *")
     public void SaveNewsfromRssScheduling() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
         //sismeclient를 통해 전체 지역 리스트를 string으로 받아온다고 가정 ex) 경기도 광명시 소하동 , 서울시 영등포구 신길동...
         List<String> regionName = new ArrayList<String>(); //일단 지금은 값이 없는 상태

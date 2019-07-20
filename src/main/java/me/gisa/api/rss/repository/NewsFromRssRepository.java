@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface NewsFromRssRepository extends JpaRepository<NewsFromRss, Long> {
     List<NewsFromRss> findByRegionNameContaining(String regionName);
+
+    List<NewsFromRss> findAll();
 }

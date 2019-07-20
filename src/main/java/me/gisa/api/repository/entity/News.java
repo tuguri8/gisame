@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-
+/*
 @Entity
 @Table(name = "NEWS")
 public class News extends BaseEntity implements Serializable {
@@ -138,3 +138,4 @@ public class News extends BaseEntity implements Serializable {
         this.newsType = newsType;
     }
 }
+*/
