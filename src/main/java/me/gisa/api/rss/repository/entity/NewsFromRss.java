@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="NEWS_FROM_RSS")
-public class Newsfromrss {
+@Table(name = "NEWS_FROM_RSS")
+public class NewsFromRss {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,45 +23,51 @@ public class Newsfromrss {
     private String originalLink;
     private String regionName;
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public void setTitle(String title){
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getSummary(){
+    public String getSummary() {
         return summary;
     }
-    public void setSummary(String summary){
+
+    public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public LocalDate getPubDate(){
+    public LocalDate getPubDate() {
         return pubDate;
     }
-    public void setPubDate(LocalDate pubDate){
+
+    public void setPubDate(LocalDate pubDate) {
         this.pubDate = pubDate;
     }
 
-    public String getOriginalLink(){
+    public String getOriginalLink() {
         return originalLink;
     }
-    public void setOriginalLink(String originalLink){
+
+    public void setOriginalLink(String originalLink) {
         this.originalLink = originalLink;
     }
 
-    public String getRegionName(){
+    public String getRegionName() {
         return regionName;
     }
-    public void setRegionName(String regionName){
+
+    public void setRegionName(String regionName) {
         this.regionName = regionName;
     }
 
-    public String getContent(){
+    public String getContent() {
         return content;
     }
-    public void setContent(String content){
+
+    public void setContent(String content) {
         this.content = content;
     }
 }

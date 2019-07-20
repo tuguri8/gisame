@@ -1,6 +1,6 @@
 package me.gisa.api.rss.service;
 
-import me.gisa.api.rss.service.model.NewsfromRssModel;
+import me.gisa.api.rss.service.model.NewsFromRssModel;
 
 import javax.xml.bind.JAXBException;
 import java.io.UnsupportedEncodingException;
@@ -9,7 +9,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public interface GoogleNewsService {
-    public List<NewsfromRssModel> getNewsfromRss (String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException;
-    public void saveNewsfromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException;
-    public String changeRegionName(String regionFullName);
+    public List<NewsFromRssModel> getNewsFromRss(String region) throws URISyntaxException, MalformedURLException, JAXBException, UnsupportedEncodingException;
+
+    public void saveNewsFromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException, URISyntaxException;
+
 }
