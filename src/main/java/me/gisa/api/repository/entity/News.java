@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
-/*
+
 @Entity
 @Table(name = "NEWS")
 public class News extends BaseEntity implements Serializable {
@@ -41,17 +41,17 @@ public class News extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "News{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", content='" + content + '\'' +
-            ", originalLink='" + originalLink + '\'' +
-            ", subLink='" + subLink + '\'' +
-            ", pubDate=" + pubDate +
-            ", regionCode='" + regionCode + '\'' +
-            ", searchKeyword='" + searchKeyword + '\'' +
-            ", summary='" + summary + '\'' +
-            ", newsType='" + newsType + '\'' +
-            '}';
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", originalLink='" + originalLink + '\'' +
+                ", subLink='" + subLink + '\'' +
+                ", pubDate=" + pubDate +
+                ", regionCode='" + regionCode + '\'' +
+                ", searchKeyword='" + searchKeyword + '\'' +
+                ", summary='" + summary + '\'' +
+                ", newsType='" + newsType + '\'' +
+                '}';
     }
 
     public static long getSerialVersionUID() {
@@ -138,4 +138,3 @@ public class News extends BaseEntity implements Serializable {
         this.newsType = newsType;
     }
 }
-*/

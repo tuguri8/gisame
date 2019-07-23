@@ -1,6 +1,5 @@
 package me.gisa.api.datatool.rss.model.v1;
 
-
 import me.gisa.api.rss.service.model.NewsFromRssModel;
 
 import java.time.LocalDate;

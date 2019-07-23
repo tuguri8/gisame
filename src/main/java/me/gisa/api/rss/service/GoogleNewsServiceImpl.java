@@ -7,8 +7,6 @@ import me.gisa.api.rss.service.model.Document;
 import me.gisa.api.rss.service.model.Documents;
 import me.gisa.api.rss.service.model.NewsFromRssModel;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +25,11 @@ import java.util.List;
 @Service
 public class GoogleNewsServiceImpl implements GoogleNewsService {
     private final NewsFromRssRepository newsfromrssRepository;
+    private final SisemeClient sismecClient;
 
     public GoogleNewsServiceImpl(NewsFromRssRepository newsfromrssRepository, SisemeClient sisemeClient) {
         this.newsfromrssRepository = newsfromrssRepository;
+        this.sismecClient = sisemeClient;
     }
 
     //google rss에서 가져옴
@@ -50,8 +50,10 @@ public class GoogleNewsServiceImpl implements GoogleNewsService {
 
     }
 
-    //가져온 뉴스기사들 DB에 저장
+    //DB 저장
+    @Scheduled(cron = "* */2 * * * *")
     public void saveNewsFromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
+
         List<NewsFromRssModel> newsFromRssModelList = getNewsFromRss(region);
 
         List<NewsFromRss> newsListFromDB = newsfromrssRepository.findAll();
@@ -68,17 +70,6 @@ public class GoogleNewsServiceImpl implements GoogleNewsService {
             newsfromrss.setRegionName(region);
 
             newsfromrssRepository.save(newsfromrss);
-        }
-    }
-
-    // 단위로 기사 데이터베이스 저장하기
-    // @Scheduled(cron = "* */2 * * * *")
-    public void SaveNewsfromRssScheduling() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
-        //sismeclient를 통해 전체 지역 리스트를 string으로 받아온다고 가정 ex) 경기도 광명시 소하동 , 서울시 영등포구 신길동...
-        List<String> regionName = new ArrayList<String>(); //일단 지금은 값이 없는 상태
-
-        for (String regionname : regionName) {
-            saveNewsFromRssToDB(regionname);
         }
     }
 

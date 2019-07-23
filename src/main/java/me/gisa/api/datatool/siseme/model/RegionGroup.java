@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum RegionGroup {
     SEOUL("서울특별시", "서울시"),
-    SEJONG("세종특별자치시", "세종시"),
+    SEJONG("세종특별시", "세종시"),
     JEJU("제주특별자치도", "제주도"),
     BUSAN("부산광역시", "부산시"),
     DAEGU("대구광역시", "대구시"),
@@ -46,6 +46,6 @@ public enum RegionGroup {
         return Arrays.stream(RegionGroup.values())
                 .filter(regionGroup -> regionName.equals(regionGroup.getFullName()))
                 .findAny()
-                .orElse(UNKNOWN);
+                .orElse(SEOUL);
     }
 }
