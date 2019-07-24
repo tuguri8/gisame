@@ -1,5 +1,8 @@
 package me.gisa.api.service.model;
 
+import me.gisa.api.repository.entity.KeywordType;
+import me.gisa.api.repository.entity.NewsType;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDate;
@@ -14,8 +17,8 @@ public class NewsModel {
     private String regionCode;
     private String summary;
 
-    private String searchKeyword;
-    private String newsType;
+    private KeywordType searchKeyword;
+    private NewsType newsType;
 
     public String getTitle() {
         return title;
@@ -73,19 +76,19 @@ public class NewsModel {
         this.summary = summary;
     }
 
-    public String getSearchKeyword() {
+    public KeywordType getSearchKeyword() {
         return searchKeyword;
     }
 
-    public void setSearchKeyword(String searchKeyword) {
+    public void setSearchKeyword(KeywordType searchKeyword) {
         this.searchKeyword = searchKeyword;
     }
 
-    public String getNewsType() {
+    public NewsType getNewsType() {
         return newsType;
     }
 
-    public void setNewsType(String newsType) {
+    public void setNewsType(NewsType newsType) {
         this.newsType = newsType;
     }
 }

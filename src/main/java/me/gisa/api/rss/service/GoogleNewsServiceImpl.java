@@ -1,11 +1,18 @@
 package me.gisa.api.rss.service;
 
 import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.rss.repository.entity.NewsFromRss;
-import me.gisa.api.rss.repository.NewsFromRssRepository;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
+import me.gisa.api.repository.entity.KeywordType;
+import me.gisa.api.repository.entity.News;
+import me.gisa.api.repository.entity.NewsRepository;
+import me.gisa.api.repository.entity.NewsType;
 import me.gisa.api.rss.service.model.Document;
 import me.gisa.api.rss.service.model.Documents;
-import me.gisa.api.rss.service.model.NewsFromRssModel;
+import me.gisa.api.service.model.NewsModel;
+import me.gisa.api.service.model.SisemeResultModel;
+import org.apache.commons.collections4.ListUtils;
 import org.jsoup.Jsoup;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,26 +26,50 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GoogleNewsServiceImpl implements GoogleNewsService {
-    private final NewsFromRssRepository newsfromrssRepository;
+    private final NewsRepository newsRepository;
     private final SisemeClient sismecClient;
 
-    public GoogleNewsServiceImpl(NewsFromRssRepository newsfromrssRepository, SisemeClient sisemeClient) {
-        this.newsfromrssRepository = newsfromrssRepository;
+    public GoogleNewsServiceImpl(NewsRepository newsRepository, SisemeClient sisemeClient) {
+        this.newsRepository = newsRepository;
         this.sismecClient = sisemeClient;
     }
 
+    private List getSisemeResult(RegionType regionType) {
+        Optional<List<Region>> sisemeResult = sismecClient.getRegionList(regionType.name());
+
+        return sisemeResult.map(regions -> regions.stream()
+                .map(this::transform)
+                .collect(Collectors.toList())).orElse(Collections.EMPTY_LIST);
+    }
+
     //google rss에서 가져옴
-    public List<NewsFromRssModel> getNewsFromRss(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
+    public List<NewsModel> getNewsFromRss(SisemeResultModel sisemeResultModel) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
         JAXBContext jaxbContext;
         jaxbContext = JAXBContext.newInstance(Documents.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        String koreanParameter = region + " 부동산";
+        String koreanParameter = sisemeResultModel.getKeyword();
+        koreanParameter = URLEncoder.encode(koreanParameter, "UTF-8");
+        String uri = "https://news.google.com/rss/search?q="
+                + koreanParameter +
+                "&hl=ko&gl=KR&ceid=KR:ko";
+        URL newsuri = new URL(uri);
+        Documents documents = (Documents) unmarshaller.unmarshal(newsuri);
+        List<Document> newsList = documents.getDocumentList();
+        return transform(newsList, sisemeResultModel);
+    }
+
+    public List<NewsModel> getNewsFromRss(String keyword) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
+        JAXBContext jaxbContext;
+        jaxbContext = JAXBContext.newInstance(Documents.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        String koreanParameter = keyword;
         koreanParameter = URLEncoder.encode(koreanParameter, "UTF-8");
         String uri = "https://news.google.com/rss/search?q="
                 + koreanParameter +
@@ -47,46 +78,91 @@ public class GoogleNewsServiceImpl implements GoogleNewsService {
         Documents documents = (Documents) unmarshaller.unmarshal(newsuri);
         List<Document> newsList = documents.getDocumentList();
         return transform(newsList);
-
     }
 
     //DB 저장
     @Scheduled(cron = "* */2 * * * *")
-    public void saveNewsFromRssToDB(String region) throws MalformedURLException, JAXBException, UnsupportedEncodingException {
+    public void saveNewsFromRssToDB() throws MalformedURLException, JAXBException, UnsupportedEncodingException {
 
-        List<NewsFromRssModel> newsFromRssModelList = getNewsFromRss(region);
+        List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO), getSisemeResult(RegionType.GUNGU));
 
-        List<NewsFromRss> newsListFromDB = newsfromrssRepository.findAll();
-        newsFromRssModelList.removeIf(duplicatedNews -> newsListFromDB.stream().anyMatch(newsFromDB -> duplicatedNews.getOriginalLink().equals(newsFromDB
-                .getOriginalLink())));
+        List<NewsModel> newsFromRssModelList = new ArrayList<>();
+        for (SisemeResultModel sisemeResultModel : sisemeResultModelList) {
+            List<NewsModel> newsFromRss = getNewsFromRss(sisemeResultModel);
+            newsFromRssModelList.addAll(newsFromRss);
+        }
 
-        for (NewsFromRssModel newsfromRssModel : newsFromRssModelList) {
-            NewsFromRss newsfromrss = new NewsFromRss();
+        List<News> newsListFromDB = newsRepository.findAllByNewsType(NewsType.GOOGLE).orElse(Collections.EMPTY_LIST);
+        newsFromRssModelList.removeIf(duplicatedNews -> newsListFromDB.stream()
+                .anyMatch(newsFromDB -> duplicatedNews.getOriginalLink().equals(newsFromDB
+                        .getOriginalLink())));
 
-            newsfromrss.setTitle(newsfromRssModel.getTitle());
-            newsfromrss.setOriginalLink(newsfromRssModel.getOriginalLink());
-            newsfromrss.setSummary(newsfromRssModel.getSummary());
-            newsfromrss.setPubDate(newsfromRssModel.getPubDate());
-            newsfromrss.setRegionName(region);
+        for (NewsModel newsModel : newsFromRssModelList) {
+            News newNews = new News();
 
-            newsfromrssRepository.save(newsfromrss);
+            newNews.setTitle(newsModel.getTitle());
+            newNews.setOriginalLink(newsModel.getOriginalLink());
+            newNews.setSummary(newsModel.getSummary());
+            newNews.setPubDate(newsModel.getPubDate());
+            newNews.setNewsType(NewsType.GOOGLE);
+            newNews.setRegionCode(newsModel.getRegionCode());
+            newNews.setSearchKeyword(newsModel.getSearchKeyword());
+
+            newsRepository.save(newNews);
         }
     }
 
-    private List<NewsFromRssModel> transform(List<Document> documents) {
-        List<NewsFromRssModel> newsFromRssModelList = new ArrayList<NewsFromRssModel>();
-        for (Document document : documents) {
-            NewsFromRssModel newsFromRssModel = new NewsFromRssModel();
-            newsFromRssModel.setTitle(document.getTitle());
-            LocalDate pubDate = LocalDate.from(DateTimeFormatter.RFC_1123_DATE_TIME.parse(document.getPubDate()));
-            newsFromRssModel.setPubDate(pubDate);
-            newsFromRssModel.setOriginalLink(document.getOriginalLink());
-            org.jsoup.nodes.Document summaryDoc = Jsoup.parse(document.getSummary());
-            newsFromRssModel.setSummary(summaryDoc.getElementsByTag("p").get(0).text());
+    private SisemeResultModel transform(Region region) {
+        String keyword;
+        keyword = RegionGroup.findByRegionName(region.getFullName()).getKeyword() + " " +
+                KeywordType.BOODONGSAN.getKeyword();
 
-            newsFromRssModelList.add(newsFromRssModel);
+        SisemeResultModel sisemeResultModel = new SisemeResultModel();
+        sisemeResultModel.setType(region.getType());
+        sisemeResultModel.setCode(region.getCode());
+        sisemeResultModel.setKeyword(keyword);
+
+        sisemeResultModel.setSearchKeyword(KeywordType.BOODONGSAN);
+
+        return sisemeResultModel;
+    }
+
+    private List<NewsModel> transform(List<Document> documents, SisemeResultModel sisemeResultModel) {
+        List<NewsModel> newsModelList = new ArrayList<NewsModel>();
+        for (Document document : documents) {
+            NewsModel newsModel = new NewsModel();
+
+            newsModel.setTitle(document.getTitle());
+            LocalDate pubDate = LocalDate.from(DateTimeFormatter.RFC_1123_DATE_TIME.parse(document.getPubDate()));
+            newsModel.setPubDate(pubDate);
+            newsModel.setOriginalLink(document.getOriginalLink());
+            org.jsoup.nodes.Document summaryDoc = Jsoup.parse(document.getSummary());
+            newsModel.setSummary(summaryDoc.getElementsByTag("p").get(0).text());
+            newsModel.setNewsType(NewsType.GOOGLE);
+            newsModel.setRegionCode(sisemeResultModel.getCode());
+            newsModel.setSearchKeyword(sisemeResultModel.getSearchKeyword());
+
+            newsModelList.add(newsModel);
         }
-        return newsFromRssModelList;
+        return newsModelList;
+    }
+
+    private List<NewsModel> transform(List<Document> documents) {
+        List<NewsModel> newsModelList = new ArrayList<NewsModel>();
+        for (Document document : documents) {
+            NewsModel newsModel = new NewsModel();
+
+            newsModel.setTitle(document.getTitle());
+            LocalDate pubDate = LocalDate.from(DateTimeFormatter.RFC_1123_DATE_TIME.parse(document.getPubDate()));
+            newsModel.setPubDate(pubDate);
+            newsModel.setOriginalLink(document.getOriginalLink());
+            org.jsoup.nodes.Document summaryDoc = Jsoup.parse(document.getSummary());
+            newsModel.setSummary(summaryDoc.getElementsByTag("p").get(0).text());
+            newsModel.setNewsType(NewsType.GOOGLE);
+
+            newsModelList.add(newsModel);
+        }
+        return newsModelList;
     }
 
 }

@@ -1,6 +1,7 @@
 package me.gisa.api.datatool.rss.model.v1;
 
 import me.gisa.api.rss.service.model.NewsFromRssModel;
+import me.gisa.api.service.model.NewsModel;
 
 import java.time.LocalDate;
 
@@ -10,9 +11,8 @@ public class V1RssNewsResponse {
     private String originalLink;
     private String summary;
     private LocalDate pubDate;
-//content , sublink 미구현
 
-    public V1RssNewsResponse(NewsFromRssModel newsfromRssModel) {
+    public V1RssNewsResponse(NewsModel newsfromRssModel) {
         this.title = newsfromRssModel.getTitle();
         this.originalLink = newsfromRssModel.getOriginalLink();
         this.summary = newsfromRssModel.getSummary();
