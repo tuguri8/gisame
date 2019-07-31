@@ -1,5 +1,6 @@
 package me.gisa.api.service.model;
 
+import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.NewsType;
 
 import java.time.LocalDate;

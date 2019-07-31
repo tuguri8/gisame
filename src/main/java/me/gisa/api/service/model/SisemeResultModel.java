@@ -1,5 +1,7 @@
 package me.gisa.api.service.model;
 
+import me.gisa.api.repository.entity.KeywordType;
+
 public class SisemeResultModel {
     private String type;
     private String code;
