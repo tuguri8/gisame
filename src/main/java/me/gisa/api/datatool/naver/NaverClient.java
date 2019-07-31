@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface NaverClient {
 
     @GetMapping(value = "/v1/search/news.json")
-    Optional<V1NaverNewsResponse> getNewsList(@RequestParam("query") String query);
+    V1NaverNewsResponse getNewsList(@RequestParam("query") String query,
+                                    @RequestParam(value = "display", defaultValue = "100") String display,
+                                    @RequestParam(value = "start", defaultValue = "1") Integer start);
 
 }

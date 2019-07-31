@@ -1,14 +1,10 @@
-package me.gisa.api.daum.repository.entity.common;
+package me.gisa.api.rss.repository.entity.common;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -47,12 +43,12 @@ public abstract class BaseEntity {
 
     private LocalDateTime getLocalDateTimeFrom(Date date) {
         return isNull(date) ? ofInstant(ofEpochMilli(new Date().getTime()), systemDefault()) : ofInstant(ofEpochMilli(date.getTime()),
-                                                                                                         systemDefault());
+                systemDefault());
     }
 
     private Date getDateFrom(LocalDateTime localDateTime) {
         return isNull(localDateTime) ? Date.from(LocalDateTime.now().atZone(systemDefault())
-                                                              .toInstant()) : Date.from(localDateTime.atZone(systemDefault())
-                                                                                                     .toInstant());
+                .toInstant()) : Date.from(localDateTime.atZone(systemDefault())
+                .toInstant());
     }
 }

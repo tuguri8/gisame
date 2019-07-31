@@ -1,21 +1,14 @@
-package me.gisa.api.service.model;
-
-import me.gisa.api.repository.entity.NewsType;
+package me.gisa.api.rss.service.model;
 
 import java.time.LocalDate;
 
-public class NewsModel {
+public class NewsFromRssModel {
     private String title;
-    private String content;
     private String originalLink;
     private String subLink;
     private LocalDate pubDate;
-
-    private String regionCode;
     private String summary;
-
-    private KeywordType searchKeyword;
-    private NewsType newsType;
+    private String content;
 
     public String getTitle() {
         return title;
@@ -23,14 +16,6 @@ public class NewsModel {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getOriginalLink() {
@@ -57,14 +42,6 @@ public class NewsModel {
         this.pubDate = pubDate;
     }
 
-    public String getRegionCode() {
-        return regionCode;
-    }
-
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
-    }
-
     public String getSummary() {
         return summary;
     }
@@ -73,19 +50,11 @@ public class NewsModel {
         this.summary = summary;
     }
 
-    public KeywordType getSearchKeyword() {
-        return searchKeyword;
+    public String getContent() {
+        return content;
     }
 
-    public void setSearchKeyword(KeywordType searchKeyword) {
-        this.searchKeyword = searchKeyword;
-    }
-
-    public NewsType getNewsType() {
-        return newsType;
-    }
-
-    public void setNewsType(NewsType newsType) {
-        this.newsType = newsType;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -5,48 +5,52 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="item")
+@XmlRootElement(name = "item")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Document {
 
-    @XmlElement(name="title")
+    @XmlElement(name = "title")
     public String title;
 
-    @XmlElement(name="link")
-    public String originallick;
+    @XmlElement(name = "link")
+    public String originalLink;
 
-    @XmlElement(name="pubDate")
+    @XmlElement(name = "pubDate")
     public String pubDate;
 
-    @XmlElement(name="description")
-    public String description;
+    @XmlElement(name = "description")
+    public String summary;
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-    public void setTitle(String title){
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getOriginallick(){
-        return originallick;
-    }
-    public void setOriginallick(String originallick){
-        this.originallick = originallick;
+    public String getOriginalLink() {
+        return originalLink;
     }
 
-    public String getPubDate(){
+    public void setOriginalLink(String originalLink) {
+        this.originalLink = originalLink;
+    }
+
+    public String getPubDate() {
         return pubDate;
     }
-    public void setPubDate(String pubDate){
+
+    public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
     }
 
-    public String getDescription(){
-        return description;
+    public String getSummary() {
+        return summary;
     }
-    public void setDescription(String description){
-        this.description = description;
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
 }

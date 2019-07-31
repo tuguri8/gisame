@@ -44,17 +44,17 @@ public class News extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "News{" +
-            "id=" + id +
-            ", title='" + title + '\'' +
-            ", content='" + content + '\'' +
-            ", originalLink='" + originalLink + '\'' +
-            ", subLink='" + subLink + '\'' +
-            ", pubDate=" + pubDate +
-            ", regionCode='" + regionCode + '\'' +
-            ", searchKeyword='" + searchKeyword + '\'' +
-            ", summary='" + summary + '\'' +
-            ", newsType='" + newsType + '\'' +
-            '}';
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", originalLink='" + originalLink + '\'' +
+                ", subLink='" + subLink + '\'' +
+                ", pubDate=" + pubDate +
+                ", regionCode='" + regionCode + '\'' +
+                ", searchKeyword='" + searchKeyword + '\'' +
+                ", summary='" + summary + '\'' +
+                ", newsType='" + newsType + '\'' +
+                '}';
     }
 
     public static long getSerialVersionUID() {
