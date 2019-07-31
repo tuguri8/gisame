@@ -1,40 +1,54 @@
 package me.gisa.api.datatool.rss.model.v1;
 
+import me.gisa.api.rss.service.model.NewsFromRssModel;
+import me.gisa.api.service.model.NewsModel;
 
-import me.gisa.api.rss.service.model.NewsfromRssModel;
+import java.time.LocalDate;
 
 public class V1RssNewsResponse {
 
-    private String title ;
+    private String title;
     private String originalLink;
-    private String elapsedDays; //경과일
-    private String description ;
+    private String summary;
+    private LocalDate pubDate;
 
-    public V1RssNewsResponse(NewsfromRssModel newsfromRssModel) {
-        this.title=newsfromRssModel.getTitle();
-        this.originalLink=newsfromRssModel.getOriginalLink();
-        this.elapsedDays=newsfromRssModel.getElapsedDays();
-        this.description=newsfromRssModel.getDescription();
+    public V1RssNewsResponse(NewsModel newsfromRssModel) {
+        this.title = newsfromRssModel.getTitle();
+        this.originalLink = newsfromRssModel.getOriginalLink();
+        this.summary = newsfromRssModel.getSummary();
+        this.pubDate = newsfromRssModel.getPubDate();
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return title;
     }
-    public void setTitle(String title){
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getOriginallick(){
+    public String getOriginallick() {
         return originalLink;
     }
-    public void setOriginallick(String originalLink){
+
+    public void setOriginallick(String originalLink) {
         this.originalLink = originalLink;
     }
 
-    public String getDescription(){
-        return description;
+    public String getSummary() {
+        return summary;
     }
-    public void setDescription(String description){
-        this.description = description;
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public LocalDate getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(LocalDate pubDate) {
+        this.pubDate = pubDate;
     }
 }
 

@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @FeignClient(name = "rss-client")
 public interface RssClient {
-        @GetMapping("rss/search/{regionName}")
-        Optional<List<V1RssNewsResponse>> getNewsfromRssList (@PathVariable("regionName") String regionName);
+    @GetMapping("rss/search/{regionName}")
+    Optional<List<V1RssNewsResponse>> getNewsfromRssList(@PathVariable("regionName") String regionName);
 }

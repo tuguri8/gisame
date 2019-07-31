@@ -9,7 +9,6 @@ import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.datatool.siseme.model.RegionGroup;
 import me.gisa.api.datatool.siseme.model.RegionType;
 import me.gisa.api.repository.NewsRepository;
-import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
 import org.slf4j.Logger;

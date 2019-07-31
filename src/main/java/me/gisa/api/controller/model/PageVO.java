@@ -1,6 +1,5 @@
 package me.gisa.api.controller.model;
 
-import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.NewsType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
