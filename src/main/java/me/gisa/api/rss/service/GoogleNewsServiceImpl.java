@@ -4,7 +4,6 @@ import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.datatool.siseme.model.RegionGroup;
 import me.gisa.api.datatool.siseme.model.RegionType;
-import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsRepository;
 import me.gisa.api.repository.entity.NewsType;

@@ -1,10 +1,7 @@
 package me.gisa.api.service.model;
 
-import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.NewsType;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 public class NewsModel {

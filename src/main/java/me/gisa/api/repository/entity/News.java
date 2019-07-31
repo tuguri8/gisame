@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -23,8 +24,10 @@ public class News extends BaseEntity implements Serializable {
     private Long id;
 
     private String title;
+    @Lob
     private String content;
     private String originalLink;    //언론사 url
+    @Lob
     private String subLink;         //???서브 url?
     private LocalDate pubDate;
 
