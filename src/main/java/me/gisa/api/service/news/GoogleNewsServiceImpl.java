@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class GoogleNewsServiceImpl {
+public class GoogleNewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
     private final SisemeClient sismecClient;
 
@@ -82,9 +82,10 @@ public class GoogleNewsServiceImpl {
     }
 
     //DB 저장
-    @Scheduled(cron = "* */2 * * * *")
-    public void saveNewsFromRssToDB() throws MalformedURLException, JAXBException, UnsupportedEncodingException {
 
+    @Override
+    @Scheduled(cron = "* */2 * * * *")
+    public void sync() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO), getSisemeResult(RegionType.GUNGU));
 
         List<NewsModel> newsFromRssModelList = new ArrayList<>();
