@@ -1,7 +1,6 @@
 package me.gisa.api.rss.controller;
 
 import me.gisa.api.datatool.rss.model.v1.V1RssNewsResponse;
-import me.gisa.api.rss.service.GoogleNewsService;
 import me.gisa.api.service.model.NewsModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
