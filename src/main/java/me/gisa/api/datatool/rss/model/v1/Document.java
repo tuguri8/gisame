@@ -1,4 +1,4 @@
-package me.gisa.api.rss.service.model;
+package me.gisa.api.datatool.rss.model.v1;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
