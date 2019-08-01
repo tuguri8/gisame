@@ -1,22 +1,5 @@
 package me.gisa.api.service.news;
 
-import me.gisa.api.datatool.daum.DaumSearchClient;
-import me.gisa.api.datatool.daum.model.v1.V1DaumNewsResponse;
-import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.datatool.siseme.model.Region;
-import me.gisa.api.datatool.siseme.model.RegionGroup;
-import me.gisa.api.datatool.siseme.model.RegionType;
-import me.gisa.api.repository.entity.KeywordType;
-import me.gisa.api.repository.entity.News;
-import me.gisa.api.repository.entity.NewsRepository;
-import me.gisa.api.repository.entity.NewsType;
-import me.gisa.api.service.model.SisemeResultModel;
-import org.apache.commons.collections4.ListUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,6 +7,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.ListUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import me.gisa.api.datatool.daum.DaumSearchClient;
+import me.gisa.api.datatool.daum.model.v1.V1DaumNewsResponse;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
+import me.gisa.api.repository.NewsRepository;
+import me.gisa.api.repository.entity.KeywordType;
+import me.gisa.api.repository.entity.News;
+import me.gisa.api.repository.entity.NewsType;
+import me.gisa.api.service.model.SisemeResultModel;
 
 @Service
 public class DaumNewsServicempl implements NewsService {
