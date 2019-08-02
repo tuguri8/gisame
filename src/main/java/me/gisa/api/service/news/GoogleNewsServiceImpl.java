@@ -1,24 +1,5 @@
 package me.gisa.api.service.news;
 
-import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.datatool.siseme.model.Region;
-import me.gisa.api.datatool.siseme.model.RegionGroup;
-import me.gisa.api.datatool.siseme.model.RegionType;
-import me.gisa.api.repository.entity.KeywordType;
-import me.gisa.api.repository.entity.News;
-import me.gisa.api.repository.entity.NewsRepository;
-import me.gisa.api.repository.entity.NewsType;
-import me.gisa.api.datatool.rss.model.v1.Document;
-import me.gisa.api.datatool.rss.model.v1.Documents;
-import me.gisa.api.service.model.NewsModel;
-import me.gisa.api.service.model.SisemeResultModel;
-import org.apache.commons.collections4.ListUtils;
-import org.jsoup.Jsoup;
-import org.springframework.scheduling.annotation.Scheduled;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,6 +11,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import org.apache.commons.collections4.ListUtils;
+import org.jsoup.Jsoup;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import me.gisa.api.datatool.rss.model.v1.Document;
+import me.gisa.api.datatool.rss.model.v1.Documents;
+import me.gisa.api.datatool.siseme.SisemeClient;
+import me.gisa.api.datatool.siseme.model.Region;
+import me.gisa.api.datatool.siseme.model.RegionGroup;
+import me.gisa.api.datatool.siseme.model.RegionType;
+import me.gisa.api.repository.NewsRepository;
+import me.gisa.api.repository.entity.KeywordType;
+import me.gisa.api.repository.entity.News;
+import me.gisa.api.repository.entity.NewsType;
+import me.gisa.api.service.model.NewsModel;
+import me.gisa.api.service.model.SisemeResultModel;
 
 public class GoogleNewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
