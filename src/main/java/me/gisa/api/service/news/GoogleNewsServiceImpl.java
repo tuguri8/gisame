@@ -18,7 +18,10 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.collections4.ListUtils;
 import org.jsoup.Jsoup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
+
 
 import me.gisa.api.datatool.rss.model.v1.Document;
 import me.gisa.api.datatool.rss.model.v1.Documents;
@@ -32,8 +35,11 @@ import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
 import me.gisa.api.service.model.NewsModel;
 import me.gisa.api.service.model.SisemeResultModel;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GoogleNewsServiceImpl implements NewsService {
+    private static final Logger log = LoggerFactory.getLogger(GoogleNewsServiceImpl.class);
     private final NewsRepository newsRepository;
     private final SisemeClient sismecClient;
 

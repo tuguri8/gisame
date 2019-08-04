@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "daum-client")
 public interface DaumSearchClient {
-    @GetMapping(value = "/v2/search/web", headers = "Authorization=key")
+    @GetMapping(value = "/v2/search/web", headers = "Authorization=KakaoAK b309b51af28c75a5fb05f12a38ca461f")
     V1DaumNewsResponse getNews(@RequestParam("query") String query,
                                @RequestParam("sort") String sort);
 }
