@@ -147,7 +147,7 @@ public class GoogleNewsServiceImpl implements NewsService {
             newsModel.setPubDate(pubDate);
             newsModel.setOriginalLink(document.getOriginalLink());
             org.jsoup.nodes.Document summaryDoc = Jsoup.parse(document.getSummary());
-            newsModel.setSummary(summaryDoc.getElementsByTag("p").get(0).text());
+            newsModel.setSummary(summaryDoc.select("p").text());
             newsModel.setNewsType(NewsType.GOOGLE);
             newsModel.setRegionCode(sisemeResultModel.getCode());
             newsModel.setSearchKeyword(sisemeResultModel.getSearchKeyword());
