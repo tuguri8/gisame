@@ -33,7 +33,7 @@ dependencies {
     // etc
 
     // jsoup HTML parser library @ https://jsoup.org/
-    compile 'org.jsoup:jsoup:1.12.1'
+    compile 'org.jsoup:jsoup:1.10.3'
     implementation 'com.google.guava:guava:23.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.apache.commons:commons-collections4:4.3'
