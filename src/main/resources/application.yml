@@ -16,8 +16,8 @@ spring:
   task:
     execution:
       pool:
-        core-size: 4
-        max-size: 50
+        core-size: 8
+        max-size: 8
       thread-name-prefix: daum-thread
 
 #spring.jpa:

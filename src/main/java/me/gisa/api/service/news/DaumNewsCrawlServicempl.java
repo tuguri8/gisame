@@ -55,7 +55,7 @@ public class DaumNewsCrawlServicempl implements NewsService {
     }
 
     @Override
-    @Scheduled(cron = "0 51 22 * * *")
+    @Scheduled(cron = "0 54 23 * * *")
     public void sync() throws IOException {
 
         List<SisemeResultModel> sisemeResultModelList = getSisemeResult(RegionType.SIDO);
@@ -69,8 +69,9 @@ public class DaumNewsCrawlServicempl implements NewsService {
     private void crawlDaumNews(SisemeResultModel sisemeResultModel) throws IOException {
         // 기존 뉴스 리스트
         List<News> priorResult = newsRepository.findAllByNewsType(NewsType.DAUM).orElse(Collections.EMPTY_LIST);
+        Integer lastPage = sisemeResultModel.getCrawlKeyword().equals("seoul") ? 11 : 6; // 서울지역만 10페이지 까지 검색
 
-        for (int i = 1; i < 11; i++) {
+        for (int i = 1; i < lastPage; i++) {
             String crawlURL = String.format("%s/news/region/%s?page=%d", URL_PREFIX, sisemeResultModel.getCrawlKeyword(), i);
             Document doc = Jsoup.connect(crawlURL).execute().parse();
 

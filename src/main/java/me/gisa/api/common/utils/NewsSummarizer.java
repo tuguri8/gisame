@@ -52,7 +52,7 @@ public class NewsSummarizer {
         HashMap<Integer, Double> tfIdfMap = new HashMap<>();
         // [['나','부동산],[...],[...]]
         for (List<String> sentenceTags : taggedSentenceList) { // sentenceTags = [나, 부동산]
-            Double resulTfIdf = taggedSentenceList.indexOf(sentenceTags) == 0 ? 0.5 : 0.0; // 첫 문장에는 0.5의 가중치 부여
+            Double resulTfIdf = taggedSentenceList.indexOf(sentenceTags) == 0 ? 0.8 : 0.0; // 첫 문장에는 0.8의 가중치 부여
             for (String keyword : keywordList) { // keyword : 부동산
                 Long tf = getTf(sentenceTags, keyword);
                 Double idf = getIdf(taggedSentenceList, keyword);
@@ -71,9 +71,12 @@ public class NewsSummarizer {
                                                                            LinkedHashMap::new));
 
         List<Integer> sortedIndexSentence = new ArrayList<>(sortedMap.keySet());
-        news.setSummary(splittedSentences.get(sortedIndexSentence.get(0))
-                            + splittedSentences.get(sortedIndexSentence.get(1))
-                            + splittedSentences.get(sortedIndexSentence.get(2)));
+        String summarizedNews = sortedIndexSentence.size() > 2 ? String.format("%s %s %s",
+                                                                               splittedSentences.get(sortedIndexSentence.get(0)),
+                                                                               splittedSentences.get(sortedIndexSentence.get(1)),
+                                                                               splittedSentences.get(sortedIndexSentence.get(2)))
+            : String.format(splittedSentences.toString());
+        news.setSummary(summarizedNews);
         newsRepository.save(news);
         log.info(news.getTitle() + " 저장완료");
     }
@@ -136,6 +139,7 @@ public class NewsSummarizer {
         List<Sentence> splittedSentences = scala.collection.JavaConversions.seqAsJavaList(KoreanSentenceSplitter.split(newsText));
         return splittedSentences.stream()
                                 .map(Sentence::text)
+                                .filter(sentence -> sentence.substring(sentence.length() - 1).equals("."))
                                 .collect(Collectors.toList());
     }
 
