@@ -1,6 +1,5 @@
 package me.gisa.api.service.news;
 
-import com.google.common.collect.Lists;
 import me.gisa.api.repository.NewsRepository;
 import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DaumNewsCrawlServicempl implements NewsService {
@@ -42,10 +40,10 @@ public class DaumNewsCrawlServicempl implements NewsService {
             Document doc = Jsoup.connect(crawlURL).execute().parse();
 
             // 뉴스 목록 받아오기
-            Elements elem = doc.select(".cont");
+            Elements newsList = doc.select(".cont");
 
             // 뉴스 정보 받아오기
-            for (Element e : elem) {
+            for (Element e : newsList) {
                 String newsURL = URL_PREFIX + e.getElementsByClass("link_txt").first().attr("href");
 
                 if (priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newsURL))) continue;

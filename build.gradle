@@ -7,13 +7,15 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+ext.koala_version = '2.0.6'
 
-group = 'com.example'
+group = 'me.gisa'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -38,6 +40,10 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'com.github.ben-manes.caffeine:caffeine'
+    compile group: 'org.openkoreantext', name: 'open-korean-text', version: '2.3.1'
+    implementation "kr.bydelta:koalanlp-hnn:2.0.6:assembly"
+//    implementation 'kr.bydelta:koalanlp-okt:2.0.6.1'
+//    implementation 'kr.bydelta:koalanlp-core:2.0.6'
     implementation 'org.modelmapper:modelmapper:2.3.0'
     
     testCompile group: 'com.h2database', name: 'h2'
@@ -49,30 +55,30 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     //querydsl
-    compile("com.querydsl:querydsl-jpa")
-    compile("com.querydsl:querydsl-apt")
+//    compile("com.querydsl:querydsl-jpa")
+//    compile("com.querydsl:querydsl-apt")
 }
 
-def querydslSrcDir = 'src/main/generated'
-
-querydsl {
-    library = "com.querydsl:querydsl-apt"
-    jpa = true
-    querydslSourcesDir = querydslSrcDir
-}
-
-compileQuerydsl {
-    options.annotationProcessorPath = configurations.querydsl
-}
-
-configurations {
-    querydsl.extendsFrom compileClasspath
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java', querydslSrcDir]
-        }
-    }
-}
+//def querydslSrcDir = 'src/main/generated'
+//
+//querydsl {
+//    library = "com.querydsl:querydsl-apt"
+//    jpa = true
+//    querydslSourcesDir = querydslSrcDir
+//}
+//
+//compileQuerydsl {
+//    options.annotationProcessorPath = configurations.querydsl
+//}
+//
+//configurations {
+//    querydsl.extendsFrom compileClasspath
+//}
+//
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java', querydslSrcDir]
+//        }
+//    }
+//}

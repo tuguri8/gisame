@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.*;
-
 public class DaumNewsServicemplTest {
 
     private static final Logger log = LoggerFactory.getLogger(DaumNewsServicemplTest.class);
@@ -41,7 +39,7 @@ public class DaumNewsServicemplTest {
 
     @Test
     public void 내용_크롤링() throws IOException {
-        String URL = "https://realestate.daum.net/news/detail/region/seoul/20190804172503840";
+        String URL = "https://realestate.daum.net/news/detail/region/nation/20190805172715677";
         Document doc = Jsoup.connect(URL).get();
         String content = doc.select(".wrap_newsbody").text();
         log.info(content);
