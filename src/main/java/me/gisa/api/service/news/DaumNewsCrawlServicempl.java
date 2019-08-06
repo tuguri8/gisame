@@ -1,5 +1,6 @@
 package me.gisa.api.service.news;
 
+import me.gisa.api.common.utils.NewsSummarizer;
 import me.gisa.api.repository.NewsRepository;
 import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
@@ -22,14 +23,18 @@ import java.util.List;
 public class DaumNewsCrawlServicempl implements NewsService {
     private static final Logger log = LoggerFactory.getLogger(DaumNewsCrawlServicempl.class);
 
+    private final NewsSummarizer newsSummarizer;
     private final NewsRepository newsRepository;
 
     private final String URL_PREFIX = "https://realestate.daum.net";
 
-    public DaumNewsCrawlServicempl(NewsRepository newsRepository) {this.newsRepository = newsRepository;}
+    public DaumNewsCrawlServicempl(NewsSummarizer newsSummarizer, NewsRepository newsRepository) {
+        this.newsSummarizer = newsSummarizer;
+        this.newsRepository = newsRepository;
+    }
 
     @Override
-    @Scheduled(cron = "0 9 19 * * *")
+    @Scheduled(cron = "0 13 22 * * *")
     public void sync() throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
         // 기존 뉴스 리스트
@@ -46,29 +51,17 @@ public class DaumNewsCrawlServicempl implements NewsService {
             for (Element e : newsList) {
                 String newsURL = URL_PREFIX + e.getElementsByClass("link_txt").first().attr("href");
 
-                if (priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newsURL))) continue;
+                if (priorResult.stream().anyMatch(priorNews -> isSameUrl(priorNews, newsURL))) { continue; }
 
                 News news = new News();
                 news.setTitle(e.getElementsByClass("tit").text());
                 news.setSubLink(newsURL);
                 news.setNewsType(NewsType.DAUM);
                 news.setPubDate(LocalDate.parse(e.getElementsByClass("txt_date").text(), formatter));
-                summarize(news);
+                newsSummarizer.summarizeNews(news);
             }
         }
 
-    }
-
-    private void summarize(News news) {
-        try {
-            Document doc = Jsoup.connect(news.getSubLink()).execute().parse();
-            news.setContent(doc.select(".wrap_newsbody").text());
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.info(e.getMessage());
-        }
-        newsRepository.save(news);
-        log.info("다음 뉴스 저장 완료");
     }
 
     private Boolean isSameUrl(News priorNews, String newsURL) {

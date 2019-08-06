@@ -32,6 +32,7 @@ public class News extends BaseEntity implements Serializable {
     private LocalDate pubDate;
 
     private String regionCode;
+    @Lob
     private String summary;
 
 

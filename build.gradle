@@ -41,9 +41,6 @@ dependencies {
     implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'com.github.ben-manes.caffeine:caffeine'
     compile group: 'org.openkoreantext', name: 'open-korean-text', version: '2.3.1'
-    implementation "kr.bydelta:koalanlp-hnn:2.0.6:assembly"
-//    implementation 'kr.bydelta:koalanlp-okt:2.0.6.1'
-//    implementation 'kr.bydelta:koalanlp-core:2.0.6'
     implementation 'org.modelmapper:modelmapper:2.3.0'
     
     testCompile group: 'com.h2database', name: 'h2'

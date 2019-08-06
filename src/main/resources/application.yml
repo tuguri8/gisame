@@ -13,6 +13,12 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 50
+      thread-name-prefix: daum-thread
 
 #spring.jpa:
 #  database: MYSQL
