@@ -12,15 +12,27 @@ import me.gisa.api.repository.NewsRepository;
 import me.gisa.api.repository.entity.KeywordType;
 import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
+import me.gisa.api.service.news.utils.jsoup.JsoupBuilder;
+import me.gisa.api.service.news.utils.summary.Sentence;
+import me.gisa.api.service.news.utils.summary.SummaryBuilder;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,99 +40,118 @@ import java.util.stream.Collectors;
 public class NaverNewsServiceImpl implements NewsService {
 
     private static final Logger log = LoggerFactory.getLogger(NaverNewsServiceImpl.class);
-    private static final Integer END_CALL = 100;
+    private static final String BASE_URL = "https://land.naver.com/news/region.nhn";
+    private static final String REGEX = "^(https?):\\/\\/([^:\\/\\s]+)(:([^\\/]*))?((\\/[^\\s/\\/]+)*)?\\/?([^#\\s\\?]*)(\\?([^#\\s]*))?" +
+        "(#(\\w*))?$";
 
+    private static final String REGION_TYPE = "sido";
     private static final NewsType NEWS_TYPE = NewsType.NAVER;
     private static final KeywordType SEARCH_KEYWORD = KeywordType.BOODONGSAN;
 
     private final SisemeClient sisemeClient;
-    private final NaverClient naverClient;
     private final NewsRepository newsRepository;
 
     public NaverNewsServiceImpl(SisemeClient sisemeClient, NaverClient naverClient, NewsRepository newsRepository) {
         this.sisemeClient = sisemeClient;
-        this.naverClient = naverClient;
         this.newsRepository = newsRepository;
     }
 
     @Override
-    @Scheduled(cron = "* */5 * * * *")
+    @Scheduled(cron = "* */10 * * * *")
     public void sync() {
 
-        try {
-            Thread.sleep(100);
-            List<Region> regionList = getRegionList();
-            List<News> originNewsList = newsRepository.findAllByNewsType(NEWS_TYPE).orElse(Collections.EMPTY_LIST);
-            List<News> newsList = regionList.stream().map(this::getNewsList).flatMap(Collection::stream).collect(Collectors.toList());
-            log.info("=====[DB 뉴스 갯수] : {}", originNewsList.size());
-            log.info("=====[중복 제거 전 뉴스 갯수] : {}", newsList.size());
-            newsList.removeIf(newNews -> originNewsList.stream().anyMatch(originNews -> isDuplicated(originNews, newNews)));
-            log.info("=====[중복 제거 후 뉴스 갯수] : {}", newsList.size());
-            newsRepository.saveAll(newsList);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        List<News> oldList = newsRepository.findAll();
+        List<News> newsList = getNewsList();
+        int count = 0;
+        for (News news : newsList) {
+            if (oldList.stream().anyMatch(i -> i.getOriginalLink().equals(news.getOriginalLink()))) { continue; }
+            newsRepository.save(news);
+            count += 1;
         }
+        log.info("DB success : {} ", count);
     }
 
-    private List<News> getNewsList(Region region) {
-        List<News> newsList = Lists.newArrayList();
-        int start = 1;
-        while (start++ <= END_CALL) {
+    private List<News> getNewsList() {
 
-            V1NaverNewsResponse v1NaverNewsResponse = naverClient.getNewsList(transform(region.getFullName()) + " " + transform(
-            ), "100", start);
+        List<Region> regionList = sisemeClient.getRegionList(REGION_TYPE).orElse(Collections.EMPTY_LIST);
+        List<News> newsDtoList = new ArrayList<>();
 
-            List<News> tempNewsList = v1NaverNewsResponse.getItems().stream().map(item -> transform(item, region, SEARCH_KEYWORD))
-                                                         .collect(Collectors.toList());
-            newsList.addAll(tempNewsList);
-            log.info("======[{}로 검색한 {}번째 페이지의 뉴스갯수 ] : {}",
-                     region.getFullName() + " " + SEARCH_KEYWORD.getKeyword(),
-                     start,
-                     v1NaverNewsResponse.getItems().size());
+        for (Region region : regionList) {
+
             try {
-                Thread.sleep(200);
+                Thread.sleep(5000);
+                Map<String, String> parameters = JsoupBuilder.getParamMap(region.getCode(), "1");
+                Optional<Document> document = JsoupBuilder.getDocument(BASE_URL, parameters);
+                Elements html = document.get().select(".headline_list li");
+
+                List<News> newsList = html.stream()
+                                          .map(child -> transform(child, region.getCode()))
+                                          .filter(news -> {
+                                              String link = news.getOriginalLink();
+                                              return StringUtils.isNotEmpty(link) && link.matches(REGEX);
+                                          })
+                                          .filter(news -> {
+                                              try {
+                                                  Thread.sleep(1000);
+                                                  news.setContent(getNewsContent(news));
+                                                  news.setSummary(getSummary(news.getContent()));
+
+                                              } catch (InterruptedException e) {
+
+                                              }
+                                              return isValidNews(news);
+                                          })
+                                          .collect(Collectors.toList());
+                newsDtoList.addAll(newsList);
+                log.info("Region Code : {} , Success Crawled : {} ", region.getCode(), newsList.size());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        return newsList;
+        return newsDtoList;
     }
 
-    private boolean isDuplicated(News originNews, News newNews) {
-        return originNews.getOriginalLink().equals(newNews.getOriginalLink());
+    private boolean isValidNews(News news) {
+        return StringUtils.isNotEmpty(news.getRegionCode())
+            && StringUtils.isNotEmpty(news.getContent())
+            && StringUtils.isNotEmpty(news.getOriginalLink())
+            && StringUtils.isNotEmpty(news.getSummary())
+            && StringUtils.isNotEmpty(news.getSubLink())
+            && StringUtils.isNotEmpty(news.getTitle())
+            && StringUtils.isNotEmpty(news.getPress())
+            && !Objects.isNull(news.getPubDate());
     }
 
-    private List<Region> getRegionList() {
-        Optional<List<Region>> optionalRegionList = sisemeClient.getRegionList(RegionType.SIDO.name());
-        if (optionalRegionList.isPresent()) {
-            List<Region> regionList = Lists.newArrayList();
-            for (Region region : optionalRegionList.get()) {
-                regionList.add(region);
-            }
-            return regionList;
-        } else { return Collections.EMPTY_LIST; }
+    private String getNewsContent(News news) {
+
+        Optional<Document> document = JsoupBuilder.getDocument(news.getOriginalLink());
+        return document.get().select("#articleBody").text();
     }
 
-    private News transform(V1NaverNewsItems v1NaverNewsItems, Region region, KeywordType keywordType) {
+    private String getSummary(String text) {
+        SummaryBuilder summaryBuilder = new SummaryBuilder();
+        return summaryBuilder.getSummary(text).stream().limit(3).map(Sentence::getValue).collect(Collectors.joining(""));
+    }
 
+    private News transform(Element child, String code) {
         News news = new News();
-        news.setTitle(v1NaverNewsItems.getTitle());
-        news.setContent(v1NaverNewsItems.getTitle());
-        news.setRegionCode(region.getCode());
-        news.setOriginalLink(Optional.ofNullable(v1NaverNewsItems.getOriginallink()).orElse(v1NaverNewsItems.getLink()));
-        news.setSubLink(Optional.ofNullable(v1NaverNewsItems.getLink()).orElse(v1NaverNewsItems.getOriginallink()));
-        news.setSearchKeyword(keywordType);
-        news.setNewsType(NEWS_TYPE);
-        news.setPubDate(v1NaverNewsItems.getPubDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        SummaryBuilder summaryBuilder = new SummaryBuilder();
+        String title = child.select("dt a").text();
+//        String summary = child.select("dd").text();
+        String link = child.select(".photo a").attr("abs:href");
+        String writing = child.select(".writing").text();
+        String thumnail = child.select(".photo a img").attr("src");
+        LocalDate date = LocalDate.parse(child.select(".date").text().replaceAll("\\.", "-"), DateTimeFormatter.ISO_LOCAL_DATE);
+        news.setTitle(title);
+        news.setOriginalLink(link);
+        news.setSubLink(thumnail);
+        news.setPress(writing);
+        news.setSubLink(thumnail);
+        news.setPubDate(date);
+        news.setRegionCode(code);
+        news.setNewsType(NewsType.NAVER);
+        news.setSearchKeyword(KeywordType.BOODONGSAN);
         return news;
-    }
-
-    private String transform() {
-        return NaverNewsServiceImpl.SEARCH_KEYWORD.getKeyword();
-    }
-
-    private String transform(String regionGroup) {
-        return RegionGroup.findByRegionName(regionGroup).getKeyword();
     }
 
 }
