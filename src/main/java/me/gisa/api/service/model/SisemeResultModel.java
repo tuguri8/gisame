@@ -6,6 +6,7 @@ public class SisemeResultModel {
     private String type;
     private String code;
     private String keyword;
+    private String crawlKeyword;
     private KeywordType searchKeyword;
 
     public String getType() {
@@ -40,4 +41,11 @@ public class SisemeResultModel {
         this.searchKeyword = searchKeyword;
     }
 
+    public String getCrawlKeyword() {
+        return crawlKeyword;
+    }
+
+    public void setCrawlKeyword(String crawlKeyword) {
+        this.crawlKeyword = crawlKeyword;
+    }
 }

@@ -44,7 +44,7 @@ public class NaverNewsServiceImpl implements NewsService {
     }
 
     @Override
-    @Scheduled(cron = "* */5 * * * *")
+//    @Scheduled(cron = "* */5 * * * *")
     public void sync() {
 
         try {
