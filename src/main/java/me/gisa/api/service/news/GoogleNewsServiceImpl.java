@@ -1,5 +1,6 @@
 package me.gisa.api.service.news;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -117,6 +118,20 @@ public class GoogleNewsServiceImpl implements NewsService {
             newNews.setNewsType(NewsType.GOOGLE);
             newNews.setRegionCode(newsModel.getRegionCode());
             newNews.setSearchKeyword(newsModel.getSearchKeyword());
+
+            try {
+                org.jsoup.nodes.Document newsDocument = Jsoup.connect(newNews.getOriginalLink()).get();
+                String newsText = "";
+                List<String> newsTextPart = newsDocument.select("div").eachText();
+                for (String div : newsTextPart) {
+                    if (div.contains("다.") || div.contains("이다") || div.contains("있다")) {
+                        newsText = div;
+                    }
+                }
+                newNews.setContent(newsText);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             newsRepository.save(newNews);
         }
