@@ -6,22 +6,22 @@ spring:
   datasource:
     platform: h2
     url: jdbc:h2:mem:gisame;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+#    url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     username: sa
     initialize-mode: always
- profiles:
-    active: local
   h2:
     console:
       enabled: true
       path: /h2-console
 
-spring.jpa:
-  database: MYSQL
-  showSql: true
-  properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  properties.hibernate.hbm2ddl.auto: create #create-drop
-  properties.hibernate.format_sql: true
-  properties.hibernate.use_sql_comments: true
+#spring.jpa:
+#  database: MYSQL
+#  showSql: false
+#  properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  properties.hibernate.hbm2ddl.auto: create #create-drop
+#  properties.hibernate.format_sql: true
+#  properties.hibernate.use_sql_comments: true
+
 
 
 feign:
@@ -31,6 +31,7 @@ feign:
         connectTimeout: 3000
         readTimeout: 3000
         loggerLevel: basic
+
 siseme-client:
   ribbon:
     listOfServers: https://sise.me
@@ -40,7 +41,6 @@ daum-client:
 naver-client:
   ribbon:
     listOfServers: https://openapi.naver.com
-
 naver:
   api:
     clientId: hdcD8fXsfj5HNEYcSqVL
