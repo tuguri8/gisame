@@ -92,7 +92,7 @@ public class GoogleNewsServiceImpl implements NewsService {
     //DB 저장
 
     @Override
-    @Scheduled(cron = "* */2 * * * *")
+//    @Scheduled(cron = "* */2 * * * *")
     public void sync() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO), getSisemeResult(RegionType.GUNGU));
 

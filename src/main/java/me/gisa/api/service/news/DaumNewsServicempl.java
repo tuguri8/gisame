@@ -62,7 +62,7 @@ public class DaumNewsServicempl implements NewsService {
 
     // 시세미 API 검색 결과로 다음 검색 DB 저장 스케쥴러
     @Override
-    @Scheduled(cron = "* */2 * * * *")
+//    @Scheduled(cron = "* */2 * * * *")
     public void sync() {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO),
                                                                         getSisemeResult(RegionType.GUNGU));
