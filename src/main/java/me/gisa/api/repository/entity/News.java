@@ -34,7 +34,7 @@ public class News extends BaseEntity implements Serializable {
     private String regionCode;
     @Lob
     private String summary;
-
+    private String press;   //언론사 추가
 
     @Enumerated(EnumType.STRING)
     private KeywordType searchKeyword;
@@ -45,21 +45,29 @@ public class News extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "News{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", originalLink='" + originalLink + '\'' +
-                ", subLink='" + subLink + '\'' +
-                ", pubDate=" + pubDate +
-                ", regionCode='" + regionCode + '\'' +
-                ", searchKeyword='" + searchKeyword + '\'' +
-                ", summary='" + summary + '\'' +
-                ", newsType='" + newsType + '\'' +
-                '}';
+            "id=" + id +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", originalLink='" + originalLink + '\'' +
+            ", subLink='" + subLink + '\'' +
+            ", pubDate=" + pubDate +
+            ", regionCode='" + regionCode + '\'' +
+            ", searchKeyword='" + searchKeyword + '\'' +
+            ", summary='" + summary + '\'' +
+            ", newsType='" + newsType + '\'' +
+            '}';
     }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getPress() {
+        return press;
+    }
+
+    public void setPress(String press) {
+        this.press = press;
     }
 
     public Long getId() {
