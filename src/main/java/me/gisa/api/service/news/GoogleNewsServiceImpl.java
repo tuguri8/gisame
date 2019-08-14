@@ -1,28 +1,5 @@
 package me.gisa.api.service.news;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import org.apache.commons.collections4.ListUtils;
-import org.jsoup.Jsoup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-
-
 import me.gisa.api.datatool.rss.model.v1.Document;
 import me.gisa.api.datatool.rss.model.v1.Documents;
 import me.gisa.api.datatool.siseme.SisemeClient;
@@ -35,7 +12,28 @@ import me.gisa.api.repository.entity.News;
 import me.gisa.api.repository.entity.NewsType;
 import me.gisa.api.service.model.NewsModel;
 import me.gisa.api.service.model.SisemeResultModel;
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GoogleNewsServiceImpl implements NewsService {
@@ -92,7 +90,7 @@ public class GoogleNewsServiceImpl implements NewsService {
     //DB 저장
 
     @Override
-//    @Scheduled(cron = "* */2 * * * *")
+    //@Scheduled(cron = "* */2 * * * *")
     public void sync() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO), getSisemeResult(RegionType.GUNGU));
 
@@ -117,6 +115,25 @@ public class GoogleNewsServiceImpl implements NewsService {
             newNews.setNewsType(NewsType.GOOGLE);
             newNews.setRegionCode(newsModel.getRegionCode());
             newNews.setSearchKeyword(newsModel.getSearchKeyword());
+
+            try {
+                org.jsoup.nodes.Document newsDocument = Jsoup.connect(newNews.getOriginalLink()).get();
+                String newsText = "";
+                List<String> newsTextPart = newsDocument.select("div").eachText();
+                for (String div : newsTextPart) {
+                    if (div.contains("다.") || div.contains("이다") || div.contains("있다")) {
+                        int daCount= StringUtils.countMatches(div,"다.");
+                        int idaCount=StringUtils.countMatches(div,"이다");
+                        int iddaCount=StringUtils.countMatches(div,"있다");
+                        if(daCount>5 || idaCount>5 || iddaCount>5) {
+                            newsText = div;
+                        }
+                    }
+                }
+                newNews.setContent(newsText);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             newsRepository.save(newNews);
         }
