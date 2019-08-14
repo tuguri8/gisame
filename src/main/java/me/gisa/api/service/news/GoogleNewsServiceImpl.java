@@ -18,6 +18,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +94,7 @@ public class GoogleNewsServiceImpl implements NewsService {
     //DB 저장
 
     @Override
-    @Scheduled(cron = "* */2 * * * *")
+    //@Scheduled(cron = "* */2 * * * *")
     public void sync() throws UnsupportedEncodingException, JAXBException, MalformedURLException {
         List<SisemeResultModel> sisemeResultModelList = ListUtils.union(getSisemeResult(RegionType.SIDO), getSisemeResult(RegionType.GUNGU));
 
@@ -125,7 +126,12 @@ public class GoogleNewsServiceImpl implements NewsService {
                 List<String> newsTextPart = newsDocument.select("div").eachText();
                 for (String div : newsTextPart) {
                     if (div.contains("다.") || div.contains("이다") || div.contains("있다")) {
-                        newsText = div;
+                        int daCount= StringUtils.countMatches(div,"다.");
+                        int idaCount=StringUtils.countMatches(div,"이다");
+                        int iddaCount=StringUtils.countMatches(div,"있다");
+                        if(daCount>5 || idaCount>5 || iddaCount>5) {
+                            newsText = div;
+                        }
                     }
                 }
                 newNews.setContent(newsText);
