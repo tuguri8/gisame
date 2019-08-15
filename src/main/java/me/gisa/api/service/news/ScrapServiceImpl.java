@@ -26,6 +26,7 @@ public class ScrapServiceImpl implements ScrapService {
 
         List<News> newsList = new ArrayList<>();
         NewsParserService newsParser = newsDto.getNewsType() == NewsType.NAVER ? new NaverNewsParserServiceImpl() : new DaumNewsParserServiceImpl();
+
         Optional<Document> optionalDocument = JsoupBuilder.getDocument(newsDto.getBaseUrl(), newsDto.getParameters());
         if (optionalDocument.isPresent()) {
             Document document = optionalDocument.get();

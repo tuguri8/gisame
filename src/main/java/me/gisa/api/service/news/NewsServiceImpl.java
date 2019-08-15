@@ -23,9 +23,7 @@ public class NewsServiceImpl implements NewsService {
     private static final Logger log = LoggerFactory.getLogger(NewsServiceImpl.class);
 
     private static final String NAVER_BASE_URL = "https://land.naver.com";
-    //요청 URL :          https://land.naver.com/news/newsRead.nhn?type=region&prsco_id=215&arti_id=0000803005
-    //파싱할 수 있는 URL :                      /news/newsRead.nhn?type=region&prsco_id=215&arti_id=0000803005
-    private static final String DAUM_BASE_URL = "https://land.naver.com/news/region.nhn";
+    private static final String DAUM_BASE_URL = "https://realestate.daum.net/news/region";
     private static final String REGION_TYPE = "sido";
 
     private final SisemeClient sisemeClient;
@@ -47,7 +45,7 @@ public class NewsServiceImpl implements NewsService {
 
             for (NewsType newsType : NewsType.values()) {
 
-                if (newsType != NewsType.NAVER) { continue; }   // 주석 풀어야함.
+                if (newsType != NewsType.NAVER || newsType != NewsType.DAUM) { continue; }   // 주석 풀어야함.
 
                 try {
                     Thread.sleep(3000);
