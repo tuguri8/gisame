@@ -1,4 +1,4 @@
-package me.gisa.api.service.model.dto;
+package me.gisa.api.service.model;
 
 import me.gisa.api.repository.entity.NewsType;
 import me.gisa.api.service.model.Tag;

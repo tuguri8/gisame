@@ -5,7 +5,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     platform: h2
-#    url: jdbc:h2:mem:gisame;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    #    url: jdbc:h2:mem:gisame;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     url: jdbc:h2:tcp://localhost/~/test;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
     username: sa
     initialize-mode: always
@@ -19,6 +19,9 @@ spring:
         core-size: 8
         max-size: 8
       thread-name-prefix: daum-thread
+  output:
+    ansi:
+      enabled: always
 
 spring.jpa:
   database: MYSQL
@@ -27,7 +30,6 @@ spring.jpa:
   properties.hibernate.hbm2ddl.auto: create #create-drop
   properties.hibernate.format_sql: true
   properties.hibernate.use_sql_comments: true
-
 
 
 feign:

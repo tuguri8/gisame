@@ -15,7 +15,6 @@ public class JsoupBuilder {
             document = Optional.ofNullable(Jsoup.connect(baseUrl)
                                                 .userAgent(RandomUserAgent.getRandomUserAgent())
                                                 .data(parameters)
-                                                .timeout(5 * 1000)
                                                 .execute()
                                                 .parse());
         } catch (IOException e) {
@@ -29,7 +28,6 @@ public class JsoupBuilder {
         try {
             document = Optional.ofNullable(Jsoup.connect(baseUrl)
                                                 .userAgent(RandomUserAgent.getRandomUserAgent())
-                                                .timeout(5 * 1000)
                                                 .execute()
                                                 .parse());
         } catch (IOException e) {

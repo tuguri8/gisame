@@ -1,7 +1,7 @@
 package me.gisa.api.service.news;
 
 import me.gisa.api.repository.entity.News;
-import me.gisa.api.service.model.dto.NewsDto;
+import me.gisa.api.service.model.NewsDto;
 
 import java.util.List;
 

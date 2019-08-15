@@ -9,7 +9,7 @@ public class NewsModel {
     private String title;
     private String content;
     private String originalLink;
-    private String subLink;
+    private String thumbnail;
     private LocalDate pubDate;
 
     private String regionCode;
@@ -42,12 +42,12 @@ public class NewsModel {
         this.originalLink = originalLink;
     }
 
-    public String getSubLink() {
-        return subLink;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setSubLink(String subLink) {
-        this.subLink = subLink;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public LocalDate getPubDate() {
@@ -96,7 +96,7 @@ public class NewsModel {
             "title='" + title + '\'' +
             ", content='" + content + '\'' +
             ", originalLink='" + originalLink + '\'' +
-            ", subLink='" + subLink + '\'' +
+            ", thumbnail='" + thumbnail + '\'' +
             ", pubDate=" + pubDate +
             ", regionCode='" + regionCode + '\'' +
             ", summary='" + summary + '\'' +

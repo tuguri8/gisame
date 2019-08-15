@@ -12,6 +12,7 @@ public abstract class Tag<T extends Tag<T>> {
     private String pressTag;
     private String newsListTag;
     private String summaryTag;
+    private String excludeTag;
 
     protected abstract T getThis();
 
@@ -68,6 +69,15 @@ public abstract class Tag<T extends Tag<T>> {
     public T setSummaryTag(String summaryTag) {
         this.summaryTag = summaryTag;
         return getThis();
+    }
+
+    public T setExcludeTag(String excludeTag) {
+        this.excludeTag = excludeTag;
+        return getThis();
+    }
+
+    public String getExcludeTag() {
+        return excludeTag;
     }
 
     public String getUrl() {

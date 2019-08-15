@@ -1,8 +1,7 @@
-package me.gisa.api.service.news.parser;
+package me.gisa.api.service.news;
 
 import me.gisa.api.repository.entity.News;
-import me.gisa.api.service.model.NewsModel;
-import me.gisa.api.service.model.dto.NewsDto;
+import me.gisa.api.service.model.NewsDto;
 import org.jsoup.nodes.Document;
 
 import java.util.List;

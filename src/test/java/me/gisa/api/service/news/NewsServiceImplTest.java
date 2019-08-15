@@ -1,21 +1,15 @@
 package me.gisa.api.service.news;
 
 import me.gisa.api.datatool.siseme.SisemeClient;
-import me.gisa.api.service.news.utils.summary.Sentence;
 import me.gisa.api.service.news.utils.summary.SummaryBuilder;
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openkoreantext.processor.tokenizer.KoreanSentenceSplitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.text.BreakIterator;
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -28,7 +22,7 @@ public class NewsServiceImplTest {
     ScrapService scrapService;
 
     @Autowired
-    NewsServiceImpl newsService;
+    BatchServiceImpl newsService;
 
     @Test
     public void test() throws IOException, JAXBException {
