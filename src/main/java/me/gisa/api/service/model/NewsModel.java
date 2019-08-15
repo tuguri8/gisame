@@ -89,4 +89,19 @@ public class NewsModel {
     public void setNewsType(NewsType newsType) {
         this.newsType = newsType;
     }
+
+    @Override
+    public String toString() {
+        return "NewsModel{" +
+            "title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", originalLink='" + originalLink + '\'' +
+            ", subLink='" + subLink + '\'' +
+            ", pubDate=" + pubDate +
+            ", regionCode='" + regionCode + '\'' +
+            ", summary='" + summary + '\'' +
+            ", searchKeyword=" + searchKeyword +
+            ", newsType=" + newsType +
+            '}';
+    }
 }

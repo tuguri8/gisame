@@ -1,0 +1,17 @@
+package me.gisa.api.service.model;
+
+import me.gisa.api.repository.entity.NewsType;
+import me.gisa.api.service.model.dto.NewsDto;
+
+public class NewsDtoFactory {
+
+    public static NewsDto getNewsDto(String baseUrl, NewsType newsType, String regionCode, String page) {
+        NewsDto newsDto = new NewsDto();
+        newsDto.setNewsType(newsType);
+        newsDto.setRegionCode(regionCode);
+        newsDto.setTag(TagFactory.getTag(newsType));
+        newsDto.setBaseUrl(baseUrl);
+        newsDto.setParameters(ParameterFactory.getParameters(newsType, regionCode, page));
+        return newsDto;
+    }
+}

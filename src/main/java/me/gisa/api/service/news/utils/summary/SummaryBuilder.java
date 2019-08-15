@@ -1,9 +1,13 @@
 package me.gisa.api.service.news.utils.summary;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SummaryBuilder {
 
@@ -81,11 +85,16 @@ public class SummaryBuilder {
         }
     }
 
-    public List<Sentence> getSummary(String text) {
+    private void calcSummary(String text) {
         getSplitedSentences(text);
         createIntersectionMatrix();
         createDictionary();
-        Collections.sort(sentences, (o1, o2) -> (int)(o2.getScore() - o1.getScore()));
-        return sentences;
+        Collections.sort(sentences, (o1, o2) -> (int) (o2.getScore() - o1.getScore()));
     }
+
+    public String getSummary(String text) {
+        calcSummary(text);
+        return sentences.stream().limit(3).map(Sentence::getValue).collect(Collectors.joining("."));
+    }
+
 }
