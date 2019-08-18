@@ -5,6 +5,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
-public interface NewsService {
+public interface BatchService {
     void sync() throws IOException, JAXBException;
 }

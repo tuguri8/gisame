@@ -36,12 +36,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class GoogleNewsServiceImpl implements NewsService {
-    private static final Logger log = LoggerFactory.getLogger(GoogleNewsServiceImpl.class);
+public class GoogleBatchServiceImpl implements BatchService {
+    private static final Logger log = LoggerFactory.getLogger(GoogleBatchServiceImpl.class);
     private final NewsRepository newsRepository;
     private final SisemeClient sismecClient;
 
-    public GoogleNewsServiceImpl(NewsRepository newsRepository, SisemeClient sisemeClient) {
+    public GoogleBatchServiceImpl(NewsRepository newsRepository, SisemeClient sisemeClient) {
         this.newsRepository = newsRepository;
         this.sismecClient = sisemeClient;
     }

@@ -9,7 +9,7 @@ public class NewsModel {
     private String title;
     private String content;
     private String originalLink;
-    private String subLink;
+    private String thumbnail;
     private LocalDate pubDate;
 
     private String regionCode;
@@ -42,12 +42,12 @@ public class NewsModel {
         this.originalLink = originalLink;
     }
 
-    public String getSubLink() {
-        return subLink;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setSubLink(String subLink) {
-        this.subLink = subLink;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public LocalDate getPubDate() {
@@ -88,5 +88,20 @@ public class NewsModel {
 
     public void setNewsType(NewsType newsType) {
         this.newsType = newsType;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsModel{" +
+            "title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", originalLink='" + originalLink + '\'' +
+            ", thumbnail='" + thumbnail + '\'' +
+            ", pubDate=" + pubDate +
+            ", regionCode='" + regionCode + '\'' +
+            ", summary='" + summary + '\'' +
+            ", searchKeyword=" + searchKeyword +
+            ", newsType=" + newsType +
+            '}';
     }
 }

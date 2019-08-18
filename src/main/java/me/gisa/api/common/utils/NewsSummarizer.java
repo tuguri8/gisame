@@ -36,7 +36,7 @@ public class NewsSummarizer {
     public void summarizeNews(News news) {
 
         try {
-            Document doc = Jsoup.connect(news.getSubLink()).execute().parse();
+            Document doc = Jsoup.connect(news.getOriginalLink()).execute().parse();
             news.setContent(doc.select(".wrap_newsbody").text());
         } catch (IOException e) {
             e.printStackTrace();
