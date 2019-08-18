@@ -19,7 +19,7 @@ public class NewsServiceImplTest {
     SisemeClient sisemeClient;
 
     @Autowired
-    ScrapService scrapService;
+    NewsParserService scrapService;
 
     @Autowired
     BatchServiceImpl newsService;

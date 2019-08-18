@@ -4,15 +4,14 @@ public abstract class Tag<T extends Tag<T>> {
 
     private String url;
     private String multiLineUrlTag;
-    private String singleUrlTag;
-    private String titleTag;
-    private String contentTag;
-    private String thumnailTag;
-    private String dateTag;
-    private String pressTag;
-    private String newsListTag;
-    private String summaryTag;
-    private String excludeTag;
+    private String portalUrl;
+    private String title;
+    private String content;
+    private String thumbnail;
+    private String date;
+    private String press;
+    private String newsList;
+    private String summary;
 
     protected abstract T getThis();
 
@@ -26,58 +25,44 @@ public abstract class Tag<T extends Tag<T>> {
         return getThis();
     }
 
-    public T setTitleTag(String titleTag) {
-        this.titleTag = titleTag;
+    public T setTitle(String title) {
+        this.title = title;
         return getThis();
     }
 
-    public T setContentTag(String contentTag) {
-        this.contentTag = contentTag;
+    public T setContent(String content) {
+        this.content = content;
         return getThis();
     }
 
-    public T setThumnailTag(String thumnailTag) {
-        this.thumnailTag = thumnailTag;
+    public T setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
         return getThis();
     }
 
-    public T setDateTag(String dateTag) {
-        this.dateTag = dateTag;
+    public T setDate(String date) {
+        this.date = date;
         return getThis();
     }
 
-    public T setPressTag(String pressTag) {
-        this.pressTag = pressTag;
+    public T setPress(String press) {
+        this.press = press;
         return getThis();
     }
 
-    public T setNewsListTag(String newsListTag) {
-        this.newsListTag = newsListTag;
+    public T setNewsList(String newsList) {
+        this.newsList = newsList;
         return getThis();
     }
 
-    public T setSummary(String summaryTag) {
-        this.summaryTag = summaryTag;
+    public T setPortalUrl(String portalUrl) {
+        this.portalUrl = portalUrl;
         return getThis();
     }
 
-    public T setSingleUrlTag(String singleUrlTag) {
-        this.singleUrlTag = singleUrlTag;
+    public T setSummary(String summary) {
+        this.summary = summary;
         return getThis();
-    }
-
-    public T setSummaryTag(String summaryTag) {
-        this.summaryTag = summaryTag;
-        return getThis();
-    }
-
-    public T setExcludeTag(String excludeTag) {
-        this.excludeTag = excludeTag;
-        return getThis();
-    }
-
-    public String getExcludeTag() {
-        return excludeTag;
     }
 
     public String getUrl() {
@@ -88,36 +73,36 @@ public abstract class Tag<T extends Tag<T>> {
         return multiLineUrlTag;
     }
 
-    public String getTitleTag() {
-        return titleTag;
+    public String getTitle() {
+        return title;
     }
 
-    public String getContentTag() {
-        return contentTag;
+    public String getContent() {
+        return content;
     }
 
-    public String getThumnailTag() {
-        return thumnailTag;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public String getDateTag() {
-        return dateTag;
+    public String getDate() {
+        return date;
     }
 
-    public String getPressTag() {
-        return pressTag;
+    public String getPress() {
+        return press;
     }
 
-    public String getNewsListTag() {
-        return newsListTag;
+    public String getNewsList() {
+        return newsList;
     }
 
-    public String getSummaryTag() {
-        return summaryTag;
+    public String getSummary() {
+        return summary;
     }
 
-    public String getSingleUrlTag() {
-        return singleUrlTag;
+    public String getPortalUrl() {
+        return portalUrl;
     }
 
     @Override
@@ -125,14 +110,14 @@ public abstract class Tag<T extends Tag<T>> {
         return "Tag{" +
             "url='" + url + '\'' +
             ", multiLineUrlTag='" + multiLineUrlTag + '\'' +
-            ", singleUrlTag='" + singleUrlTag + '\'' +
-            ", titleTag='" + titleTag + '\'' +
-            ", contentTag='" + contentTag + '\'' +
-            ", thumnailTag='" + thumnailTag + '\'' +
-            ", dateTag='" + dateTag + '\'' +
-            ", pressTag='" + pressTag + '\'' +
-            ", newsListTag='" + newsListTag + '\'' +
-            ", summaryTag='" + summaryTag + '\'' +
+            ", portalUrl='" + portalUrl + '\'' +
+            ", title='" + title + '\'' +
+            ", content='" + content + '\'' +
+            ", thumbnail='" + thumbnail + '\'' +
+            ", date='" + date + '\'' +
+            ", press='" + press + '\'' +
+            ", newsList='" + newsList + '\'' +
+            ", summary='" + summary + '\'' +
             '}';
     }
 }
