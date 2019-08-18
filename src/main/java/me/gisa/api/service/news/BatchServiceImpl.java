@@ -30,9 +30,9 @@ public class BatchServiceImpl implements BatchService {
 
     private final SisemeClient sisemeClient;
     private final NewsRepository newsRepository;
-    private final ScrapService scrapService;
+    private final NewsParserService scrapService;
 
-    public BatchServiceImpl(SisemeClient sisemeClient, NewsRepository newsRepository, ScrapService scrapService) {
+    public BatchServiceImpl(SisemeClient sisemeClient, NewsRepository newsRepository, NewsParserService scrapService) {
         this.sisemeClient = sisemeClient;
         this.newsRepository = newsRepository;
         this.scrapService = scrapService;
@@ -48,7 +48,6 @@ public class BatchServiceImpl implements BatchService {
 
             for (NewsType newsType : NewsType.values()) {
 
-                //Google, UNKNOWN 어떻게..?
                 if (newsType == NewsType.GOOGLE || newsType == NewsType.UNKNOWN) { continue; }
 
                 try {
@@ -65,7 +64,7 @@ public class BatchServiceImpl implements BatchService {
             }
         }
         long endTime = System.currentTimeMillis();
-        log.info("========[Crawl Service End] : [ {} ]========", (double) (endTime - startTime) / 1000);
+        log.info("========[Crawl Service End] : [ {} sec ]========", (double) (endTime - startTime) / 1000);
     }
 
     private int saveNewsList(List<News> newsList, NewsType newsType) {
