@@ -1,9 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'java'
-
-    //querydsl
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -24,7 +21,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    implementation 'org.springframework.boot:spring-boot-devtools'
 
     // feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.1.1.RELEASE'
@@ -40,40 +36,13 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine'
     compile group: 'org.openkoreantext', name: 'open-korean-text', version: '2.3.1'
     implementation 'org.modelmapper:modelmapper:2.3.0'
-    
+
     testCompile group: 'com.h2database', name: 'h2'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.1'
 
     runtime 'com.h2database:h2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
-    //querydsl
-//    compile("com.querydsl:querydsl-jpa")
-//    compile("com.querydsl:querydsl-apt")
 }
-
-//def querydslSrcDir = 'src/main/generated'
-//
-//querydsl {
-//    library = "com.querydsl:querydsl-apt"
-//    jpa = true
-//    querydslSourcesDir = querydslSrcDir
-//}
-//
-//compileQuerydsl {
-//    options.annotationProcessorPath = configurations.querydsl
-//}
-//
-//configurations {
-//    querydsl.extendsFrom compileClasspath
-//}
-//
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ['src/main/java', querydslSrcDir]
-//        }
-//    }
-//}
