@@ -1,7 +1,7 @@
 package me.gisa.api.service.news;
 
-import me.gisa.api.datatool.rss.model.v1.Document;
-import me.gisa.api.datatool.rss.model.v1.Documents;
+import me.gisa.api.service.model.rss.Document;
+import me.gisa.api.service.model.rss.Documents;
 import me.gisa.api.datatool.siseme.SisemeClient;
 import me.gisa.api.datatool.siseme.model.Region;
 import me.gisa.api.datatool.siseme.model.RegionGroup;

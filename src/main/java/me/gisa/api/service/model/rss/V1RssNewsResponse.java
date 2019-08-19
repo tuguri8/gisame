@@ -1,4 +1,4 @@
-package me.gisa.api.datatool.rss.model.v1;
+package me.gisa.api.service.model.rss;
 
 import me.gisa.api.service.model.NewsModel;
 
