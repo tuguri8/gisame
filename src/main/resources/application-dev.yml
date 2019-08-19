@@ -10,10 +10,10 @@ spring:
       hibernate.use_sql_comments: true
 
   datasource:
-    url: '{cipher}f419e70dc77947310db02ac92764f92db127c886d2b8bfb61eebd2a193f798ca81595c21abe4adbc532da3ed59814cb9b4fa15a16786fc510c9cd9454bf5d02d8d26ba98bdab5d466189df1ca423524b081da2e3de02202c85da88353f3db67f3a14bc6b6ee6bb
-                  c5fde4088ff9218f7d8cddba41eecbab213b5cf6f8a5fa637f397f46d2a3db8e0a65442342f6bda7af'
-    username: '{cipher}276c7daaf1ec775247e0fa52f1e1774ee9ddbb11e4bb2c73f1622aa94fcee2d4'
-    password: '{cipher}96f6d59fbf6d87e140857b180001c075dee8a05af6fcb42da9753b5c81b27870'
+    url: '{cipher}7f72ab9d3ca220ca6f7eb1d158f96649c32cc71ea49450416e8a788d223a75fa714f0bc766d88ed199335618394d1ec3b09af9e9121c511057c33960fdd61dfd60d92eff7b63e46fb689f3f9d91b6a3053231a14cee4c6da3d25dcd93f2d6e629d7017c596450d
+                  5246f0bf6211ffb9d86b08840e707c630fa23a6aa5fe091a2941a01ca84d5c83a40463e57b38c3498c'
+    username: '{cipher}2584e761373ed601559fa350b99b1b9ffdb0dc79dacb34ed0b1adf589e90a8e3'
+    password: '{cipher}12c3f3ba9d9cee38d160e1f88998e731512644867b0ab6af983bff0245c24a42'
     driverClassName: org.mariadb.jdbc.Driver
     initialization-mode: NEVER
 
