@@ -39,7 +39,7 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    @Scheduled(cron = "* */5 * * * *")
+    @Scheduled(cron = "0 11 * * * *")
     public void sync() throws IOException, JAXBException {
         long startTime = System.currentTimeMillis();
         List<Region> regionList = sisemeClient.getRegionList(REGION_TYPE).orElse(Collections.EMPTY_LIST);
